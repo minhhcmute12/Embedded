@@ -1,0 +1,125 @@
+/*
+ * Bài tập mảng: Viết chương trình nhập vào một 2 mảng(cho phép người dùng nhập số phần tử).
+ * Sau đó tiến hành hoán vị, đổi giá trị các phần tử 2 mảng cho nhau.
+ * */
+
+#include<stdio.h>
+#include<stdint.h>
+
+//Khai báo các hàm sẽ đc viết phía sau hàm main
+void wait_for_user_input(void);
+void display_array(int32_t *pArray1,uint32_t nitem);
+void swap_arrays(int32_t *array1, int32_t *array2, uint32_t nitem1, uint32_t nitem2);
+
+int main(void)
+{
+	//Nhập số phần tử cho 2 mảng
+    int32_t nItem1, nItem2;
+    printf("Array swapping program\n");
+    printf("Enter no of elements of Array-1 and Array-2:");
+    scanf("%d %d",&nItem1,&nItem2);
+
+    //Kiểm tra số phần tử đc nhập vào ko phải là số âm
+    if((nItem1 < 0) || (nItem2 < 0))
+    {
+    	printf("Number of elements cannot be negative\n");
+    	wait_for_user_input();
+    	return 0;
+    }
+
+    //Khởi tạo mảng, lưu ý việc khởi tạo cách này phải từ bản C99 trở lên
+    int32_t array1[nItem1];
+    int32_t array2[nItem2];
+
+    //Nhập value cho các thành phần của mảng
+    for(uint32_t i = 0; i < nItem1 ; i++ )
+    {
+    	printf("Enter %d element of array1:",i);
+    	scanf("%d",&array1[i]);
+    }
+
+    for(uint32_t i = 0; i < nItem2 ; i++ )
+    {
+    	printf("Enter %d element of array2:",i);
+    	scanf("%d",&array2[i]);
+    }
+
+	printf("Contents of arrays before swap \n");
+
+	display_array(array1,nItem1);
+
+	printf("\n");
+
+	display_array(array2,nItem2);
+
+	printf("\n");
+
+	printf("Contents of arrays after swap\n");
+
+	swap_arrays(array1,array2,nItem1,nItem2);
+
+	display_array(array1,nItem1);
+
+	printf("\n");
+
+	display_array(array2,nItem2);
+
+	printf("\n");
+
+	wait_for_user_input();
+
+	return 0;
+
+
+}
+
+//Lưu ý: nếu sử dụng param là : int32_t pArray[] thì chương trình C sẽ tạo ra một biến ảo có value
+//đc copy từ mảng đưa vào, việc hoán đổi giá trị sẽ ko các tác dụng với mảng chính đc đưa vào.
+//Nên ở đây ta viết int32_t *pArray là muốn thay đổi luôn mảng đc đưa vào
+
+/**
+ * Hàm đổi vị trí các giá trị của 2 mảng
+ * array1,array2: mảng hoán đổi
+ * nitem1,nitem2 : số phần tử của mảng 1 và mảng 2
+ */
+void swap_arrays(int32_t *array1, int32_t *array2, uint32_t nitem1, uint32_t nitem2)
+{
+	//Sử dụng toán tử 3 ngôi để tìm kiếm mảng nào có độ dài lớn hơn làm số mốc
+   uint32_t len = nitem1 < nitem2 ? nitem1 : nitem2;
+
+   for(uint32_t i = 0 ; i < len ; i++)
+   {
+	   //Sử dụng pp sử dụng biến tạm
+	   int32_t temp = array1[i];
+	   array1[i] = array2[i];
+	   array2[i] = temp;
+   }
+
+}
+
+/**
+ * Hàm hiển thị các value của mảng
+ * pArray1: mảng
+ * nitem : số phần tử muốn hiển thị
+ */
+void display_array(int32_t *pArray1,uint32_t nitem)
+{
+	for(uint32_t i = 0 ; i < nitem ; i++)
+	{
+		printf("%4d  ",pArray1[i]);
+	}
+	//Vì hàm chỉ có chức năng hiển thị nên có thể khai báo param là : int32_t pArray1[]
+}
+
+void wait_for_user_input(void)
+{
+
+	printf("Press enter key to exit this application");
+
+    while(getchar() != '\n')
+    {
+    	//just read the input buffer and do nothing
+    }
+    getchar();
+
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+	</section>
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\Minh\Documents\Arm C\Led_toggle_bitfields_macro"/>
+			<item value="C:\Users\Minh\Documents\Arm C\arrays_swap"/>
+			<item value="C:\Users\Minh\Documents\Arm C\arrays_passing"/>
+			<item value="C:\Users\Minh\Documents\Arm C\009packed_Vsnonpacked"/>
+			<item value="C:\Users\Minh\Documents\Arm C\dataAlignment"/>
+			<item value="C:\Users\Minh\Documents\Arm C\structInit"/>
+			<item value="C:\Users\Minh\Documents\Arm C\006pin_read"/>
+			<item value="C:\Users\Minh\Documents\Arm C\008button_ISR"/>
+			<item value="C:\Users\Minh\Documents\Arm C\007volatile"/>
+			<item value="C:\Users\Minh\Documents\Arm C\Led_Read_Pin_Optimization"/>
+			<item value="C:\Users\Minh\Documents\Arm C\var_address"/>
+			<item value="C:\Users\Minh\Documents\Arm C\unionBitExraction"/>
+			<item value="C:\Users\Minh\Documents\Arm C\union"/>
+			<item value="C:\Users\Minh\Documents\Arm C\student_record"/>
+			<item value="C:\Users\Minh\Documents\Arm C\structPointer"/>
+			<item value="C:\Users\Minh\Documents\Arm C\structPacketBitfield"/>
+			<item value="C:\Users\Minh\Documents\Arm C\constdata"/>
+			<item value="C:\Users\Minh\Documents\Arm C\forloopNumberPyramid"/>
+			<item value="C:\Users\Minh\Documents\Arm C\structPacket"/>
+			<item value="C:\Users\Minh\Documents\Arm C\macro"/>
+			<item value="C:\Users\Minh\Documents\Arm C\bitWiseSet"/>
+			<item value="C:\Users\Minh\Documents\Arm C\bitWiseEvenOdd"/>
+			<item value="C:\Users\Minh\Documents\Arm C\bitWise2Numbers"/>
+			<item value="C:\Users\Minh\Documents\Arm C\ifelseifTax"/>
+			<item value="C:\Users\Minh\Documents\Arm C\003Add"/>
+			<item value="C:\Users\Minh\Documents\Arm C\001Sizeof"/>
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="602"/>
+		<item key="DIALOG_Y_ORIGIN" value="334"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+</section>

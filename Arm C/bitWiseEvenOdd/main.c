@@ -1,0 +1,54 @@
+/*
+ * Phương pháp bit_masking(hay gọi là bit mặt nạ):
+ * Mục đích của phương pháp này là dùng 1 bit mặt nạ A và bitWise với bit data nhằm thay đổi trạng thái của 1 hay nhiều bit data.
+ * VD: thay đổi trạng thái bit từ 0 thành 1 hoặc từ 1 thành 0
+ * Cách 1(Testing bits): dùng toán tử bitwise AND(&) với 1 dãy bit mặt mạ mong muốn
+ * VD: [data] 00101110    hoặc 	 10101110    hoặc 	001011110
+ * 				&                   &					&
+ * 	   [mask] 00000010		     10000000			000000011
+ * 	   [out]  00000010			 10000000			000000010
+ *
+ * -> Phương pháp này thường đc sử dụng khi chỉ muốn tạo 1 vị trí bit đầu ra bằng 1 các bit còn lại bằng 0
+ *
+ * Cách 3(Clearing bit): dùng toán tử bitwise AND(&) với 1 dãy bit mặt mạ mong muốn
+ * VD: [data] 10111110    hoặc 	 10111110
+ * 				&                   &
+ * 	   [mask] 10001111		   ~(10000000)
+ * 	   [out]  10001110			 10000000
+ * 	-> hương pháp này thường đc sử dụng khi cần xóa hoặc đưa 1 vùng bit data về trạng thái 0
+ * */
+
+#include<stdio.h>
+#include<stdint.h>
+
+void wait_for_user_input(void);
+
+
+int main(void)
+{
+	int32_t num1;
+	printf("Enter a number:");
+	scanf("%d",&num1);
+
+	if(num1 & 1){    //biến mask_value : 1 = 0000 0001
+		printf("%d is odd number\n",num1);
+	}else{
+		printf("%d is even number\n",num1);
+	}
+
+    wait_for_user_input();
+}
+
+
+void wait_for_user_input(void)
+{
+
+	printf("Press enter key to exit this application");
+
+    while(getchar() != '\n')
+    {
+    	//just read the input buffer and do nothing
+    }
+    getchar();
+
+}

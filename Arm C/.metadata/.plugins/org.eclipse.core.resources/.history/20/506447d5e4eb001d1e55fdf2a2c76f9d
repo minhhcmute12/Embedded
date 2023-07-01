@@ -1,0 +1,154 @@
+/*
+ * Giá trị "const"
+ *
+ * Lưu ý: 'const' không có nghĩa là giá trị không bao giờ đổi, mà nó là trình biên dịch cảnh báo
+ * cho bạn rằng ai đó đang cố gắng thay đổi giá trị của biến đó bằng tên của nó.
+ *
+ * Các biến 'const' ở dạng biến 'local' sẽ được lưu trữ trong bộ nhớ RAM, và chức năng duy nhất của
+ * chúng là chỉ đọc 'read-only'.
+ * Các biến 'const' ở dạng biến 'global' sẽ được lưu trữ trong bộ nhớ ROM hoặc FLASH.
+ *
+ * Trong STM32 thì, tất cả các biến global 'const' đều sẽ được lưu trong bộ nhớ FLASH. Vì vậy khi bạn
+ * cố gắng thay đổi biến const bằng cách thay đổi địa chỉ của nó sẽ KHÔNG có tác dụng . Bởi vì bộ nhớ
+ * FLASH là bộ nhớ chống ghi(read-only)
+ *
+ * Các cách khai báo biến 'const'
+ * C1: Cách bình thường
+ * 	   kiểu_biến const tên_biến = giá trị; -> vd: uint8_t const data = 10;
+ *
+ * C2: Sử dụng con trỏ
+ * 	   kiểu_biến const *tên_con_trỏ = (kiểu_biến *) địa_chỉ_cần lưu_giá_trị_const
+ * 	   -> vd: uint8_t const *pData = (uint8_t*)0x40000000;
+ * 	   Các cách gán cho phép: pData = (uint8_t*)0x50000000 hoặc pData = (uint8_t*)0x60000000
+ * 	   Các cách gán KHÔNG cho phép : *pData = 50;
+ * 	   => Có nghĩa là cho phép thay đổi địa chỉ mà con trỏ lưu nhưng KHÔNG cho phép thay đổi
+ * 	   giá trị tại địa chỉ mà con trỏ đang lưu
+ *
+ * C3: Dạng con trỏ đặc biệt 1
+ * 	   kiểu_biến *const tên_biến = (kiểu_biến *) địa_chỉ_cần lưu_giá_trị_const
+ * 	   -> vd: uint8_t *const pData = (uint8_t*)0x40000000;
+ * 	   Đây là trường hợp con trỏ dạng 'const' nhưng cho phép thay đổi dữ liệu
+ * 	   Các cách gán cho phép: *pData = 50; hoặc *pData = 10;
+ * 	   Các cách gán KHÔNG cho phép : pData = (uint8_t*)0x50000000 hoặc pData = (uint8_t*)0x60000000
+ * 	   => Có nghĩa là cho phép thay đổi giá trị của địa chỉ mà con trỏ lưu nhưng KHÔNG cho phép
+ * 	   thay đổi địa chỉ mà con trỏ đang lưu
+ * 	   =>Ta có thể gọi đây là con trỏ chỉ cho phép đọc(read-only) địa chỉ mà nó đang lưu mà
+ * 	   KHÔNG cho phép thay đổi địa chỉ mà nó đang lưu.
+ *
+ * C4 Dạng con trỏ đặc biệt 2 (tổng hợp từ C2+C3)
+ * 	   kiểu_biến const *const tên_biến = (kiểu_biến *) địa_chỉ_cần lưu_giá_trị_const
+ * 	   -> vd: uint8_t const *const pData = (uint8_t*)0x40000000;
+ * 	   Chỉ được phép đọc(read-only) địa chỉ mà con trỏ đang lưu và giá trị của địa chỉ mà
+ * 	   con trỏ đang lưu. KHÔNG cho phép thay đổi bất cứ cái gì liên quan đến giá trị hoặc địa chỉ
+ * 	   mà con trỏ đang lưu.
+ *
+ * *Một số lưu ý khác: (điều 4 là quan trọng nhất)
+ * 1.Sử dụng 'const' là thêm một số an toàn trong quá trình code, có nghĩa là trình biên dịch sẽ thông
+ * báo đến bạn khi bạn cố gắng thay đổi giá trị của biến const.
+ * 2.Biến 'const' vì là không thay đổi nên nó chỉ có một trạng thái trong suốt chương trình. Bạn cần theo
+ * dõi các trạng thái khác nhau của nó.
+ * 3.Việc sử dụng 'const' sẽ giúp cải thiện khả năng đọc dữ liệu
+ * 4(**).Nên sử dụng 'const' khi bạn sử dụng con trỏ trong các hàm hoặc khai báo prototype.
+ * 5.Sử dụng 'const' cũng giúp cho trình biên dịch tạo mã được tối ưu hóa hơn.
+ */
+
+#include <stdio.h>
+#include <stdint.h>
+
+uint8_t const data = 10;   //Vd2: khai báo biến const,ở dạng global so với hàm main
+//Kết quả sau khi chạy run thì chương trình mặc dù ko lỗi những sẽ bị đứng,
+
+int main(void)
+{
+
+//	uint8_t const data = 10;   //VD1: khai báo biến const, ở dạng local so với hàm main
+
+	printf("Value = %u\n",data);
+
+	//ta sẽ tiến hành thay đổi giá trị của biến const 'data'
+	uint8_t *ptr = (uint8_t*)&data; //ép kiểu: (uint8_t*) == uint8_t const *
+	//Tạo con trỏ lưu địa chỉ của biến const 'data'
+	//Tuy nhiên nếu chỉ viết thông thường là '&data' thì chương trình đưa ra cảnh báo lỗi
+	//do địa chỉ này đang là 1 const ko được phép thay đổi giá trị của nó(trạng thái read-only)
+	//Vì vậy ta cần ép về kiểu '(uint8_t*)' để thông báo cho trình biên dịch cho phép đc
+	//thay đổi giá trị biến lưu tại địa chỉ const
+
+	*ptr = 50;
+
+	printf("Value = %u\n",data);  //data=50
+
+	getchar();
+}
+
+/*
+ * Giải thích 1: Trường hợp nên sử dụng con trỏ dạng 'const' (cho cách viết 2)
+ *
+ * Ta có 1 chương trình sau: Viết một chương trình copy từ file nguồn(src) sang file đích(dst)
+ * void copy_src_to_dst(uint8_t *src, uint8_t *dst, uint32_t len)
+ * {
+ * 		for(uint32_t i=0;i<len;i++)
+ * 		{
+ * 			*dst = *src; 	//dòng1: lấy giá trị tại địa chỉ src gán cho giá trị địa chỉ dst
+ * 			dst++;			//tăng giá trị địa chỉ lên 1 đơn vị
+ * 			src++;			//tăng giá trị địa chỉ lên 1 đơn vị
+ * 		}
+ * }
+ * Thoạt nhìn ta thấy rằng các dòng code ko có vấn đề gì, và cũng ko có cảnh báo nào
+ * việc chạy code cũng sẽ bình thường. Tuy nhiên, vấn đề ở đây liệu có chắc rằng trước hoặc sau khi
+ * dòng code 1 được viết thì người lập trình có tác động gì vào giá trị của *src hay không.
+ * Vd: viết thêm 1 dòng code: *src = 10;
+ * Nếu điều này xảy ra thì giá trị *src sẽ bị thay đổi trong quá trình gán và sẽ tác động đến các hàm
+ * khác có sử dụng *src mà ko có cảnh báo nào từ trình biên dịch.
+ * -> Giải pháp: khai báo sử dụng con trỏ dạng 'const'
+ *
+ * void copy_src_to_dst(uint8_t const *src, uint8_t *dst, uint32_t len)
+ * {
+ * 		for(uint32_t i=0;i<len;i++)
+ * 		{
+ * 			*dst = *src; 	//dòng1: lấy giá trị tại địa chỉ src gán cho giá trị địa chỉ dst
+ * 			dst++;			//tăng giá trị địa chỉ lên 1 đơn vị
+ * 			src++;			//tăng giá trị địa chỉ lên 1 đơn vị
+ * 		}
+ * }
+ * Khai báo *src là một 'const', chỉ cho phép đọc dữ liệu mà KHÔNG cho phép thay đổi
+ * dữ liêu con trỏ nguồn. Cho dù lập trình viên có vô ý thêm 1 dòng code để làm thay đổi giá trị
+ * con trỏ nguồn thì trình biên dịch cũng sẽ dễ dàng phát hiện và báo lỗi cho lập trình viên
+ * Cách sử dụng con trỏ 'const' thường được áp dụng cho các chương trình cần bảo vệ dữ liệu nguồn.
+ * Tránh các trường hợp dữ liệu nguồn bị thay thế trong quá trình xử lý
+ */
+
+/*
+ * Giải thích 2: Trường hợp nên sử dụng con trỏ dạng 'const' (cho cách viết 3)
+ *
+ * Ta có 1 chương trình sau: Viết một chương trình cập nhật tuổi và tiền lương
+ * void update_user_data(uint8_t *const pUserAge, uint8_t *const pUserSalary)
+ * {
+ * 		if(pUserAge != NULL)  //địa chỉ con trỏ đang lưu khác NULL
+ * 		{
+ * 			*pUserAge getUserAge();
+ * 		}
+ *
+ * 		if(pUserSalary != NULL)
+ * 		{
+ * 			*pUserAge getUserSalary();
+ * 		}
+ * }
+ * Việc sử dụng khai báo con trỏ ở dạng này sẽ giúp cho lập trình viên tránh được việc
+ * vô tình làm thay đổi địa chỉ mà con trỏ đang lưu trong quá trình xử lý code.
+ */
+
+/*
+ * Giải thích 3: Trường hợp nên sử dụng con trỏ dạng 'const' (cho cách viết 4)
+ *
+ * Ta có 1 chương trình sau: Viết một chương trình đọc giá trị của thanh ghi register
+ * uint32_t read_status_register(uint32_t const*const pStatusReg)
+ * {
+ * 		return (*pStatusReg);   //đọc và trả về giá trị của địa chỉ mà con trỏ đang lưu
+ * }
+ * Ở các hành động liên quan đến đọc trạng thái hiện tại ở các thanh ghi thì thường chỉ đc phép đọc
+ * và không cho phép thay đổi địa chỉ hay giá trị địa chỉ đang có.
+ * Vì vậy, dù lập trình viên có vô ý tác đông thay đổi địa chỉ hoặc giá trị của địa chỉ mà con trỏ
+ * đang lưu thì trình biên dịch cũng sẽ báo lỗi. Nếu không có 'const' thì lập trình viên có thể
+ * tác động vào kết quả đọc, dẫn đến các hành động không mong muốn tiếp theo, chưa kể đến việc
+ * có thể làm lỗ hổng để hacker tấn công hệ thống.
+ */

@@ -1,0 +1,10 @@
+00:25:04 **** Incremental Build of configuration Debug for project LedOn ****
+make -j8 all 
+arm-none-eabi-size   LedOn.elf 
+   text	   data	    bss	    dec	    hex	filename
+    764	      8	   1568	   2340	    924	LedOn.elf
+Finished building: default.size.stdout
+ 
+
+00:25:05 Build Finished. 0 errors, 0 warnings. (took 353ms)
+

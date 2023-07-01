@@ -1,0 +1,5 @@
+17:28:00 **** Clean-only build of configuration Debug for project Union00 ****
+rm -rf main.d Union00.exe main.o 
+
+17:28:00 Build Finished. 0 errors, 0 warnings. (took 269ms)
+

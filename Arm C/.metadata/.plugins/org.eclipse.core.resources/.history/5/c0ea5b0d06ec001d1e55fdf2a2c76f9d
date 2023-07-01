@@ -1,0 +1,21 @@
+/*
+ * math.h
+ *
+ *  Created on: 2021/01/11
+ *      Author: Minh
+ */
+
+#ifndef MATH_H_   //Giải thích: ban đầu khi biên dịch sẽ kiểm tra chương trình có define nào ko
+#define MATH_H_   //nếu ko sẽ nhảy xuống dòng này, ta sẽ thực hiện lệnh define và tiếp tục thực
+				//hiện các lệnh tiền khai báo các hàm. (Lưu ý sau khi thực hiện các lệnh tiền khai báo
+				//các hàm thì chúng sẽ đc lưu sẵn trong ram và chờ đc gọi.). việc #ifndef MATH_H_ giúp cho
+				//sau này có một file khác gọi thư viện này thì sẽ ko thực hiện đc. Ví dụ nếu ko có lệnh #ifndef MATH_H_
+				//thì các lệnh tiền khai báo hàm vẫn sẽ đc thực hiện.Lúc đó trong RAM vô tình có nhiều hàm trùng tên.
+				//Điều đó dẫn đến việc xung đột xử lý giữa các hàm khi đc gọi thực hiện nhiệm vụ
+
+int math_add(int n1,int n2);
+int math_sub(int n1,int n2);
+long long int math_mul(int n1,int n2);
+float math_div(int n1,int n2);
+
+#endif /* MATH_H_ */

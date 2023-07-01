@@ -1,0 +1,7 @@
+16:57:52 **** Rebuild of configuration Debug for project floatPrice ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o floatPrice.exe main.o 
+
+16:57:55 Build Finished. 0 errors, 0 warnings. (took 2s.795ms)
+

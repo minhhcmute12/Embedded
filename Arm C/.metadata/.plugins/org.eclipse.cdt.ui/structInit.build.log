@@ -1,0 +1,7 @@
+23:15:31 **** Rebuild of configuration Debug for project structInit ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o structInit.exe main.o 
+
+23:15:33 Build Finished. 0 errors, 0 warnings. (took 1s.473ms)
+
