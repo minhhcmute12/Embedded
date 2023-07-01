@@ -1,0 +1,42 @@
+/*
+ * main1.c
+ *
+ *  Created on: Jun 25, 2023
+ *      Author: Minh
+ */
+/**
+ * Function call and AAPCS Standard - Tiêu chuẩn AAPCS và việc gọi hàm
+ * -------------------------------------------------------------------
+ * Ví dụ:
+ * //hàm 1
+ * void fun_x(void){
+ * 	int ret;
+ * 	ret = fun_y(1,2,4,5);
+ * }
+ *
+ * //hàm 2
+ * void fun_y(int a, int b, int c, int d){
+ * 	return(a+b+c+d);
+ * }
+ *
+ * Ta có ở hàm x ta sẽ gọi hàm y, x đc gọi là hàm Caller và y đc gọi là hàm callee
+ *
+ * Tiêu chuẩn AAPCS mô tả tiêu chuẩn gọi thủ tục đc sử dụng bởi binary interface cho kiến trúc ARM.
+ * + AAPCS xác định cách các chương trình con có thể đc viết tách biệt, biên dịch riêng để làm việc cùng nhau.
+ * + Nó mô tả một hợp đồng giữa một quy trình gọi và một quy trình đc gọi để xác định. Bổn phận trên caller là tạo ra một
+ * trạng thái chương trình mà trong đó quy trình đc gọi(callee) có thể bắt đầu thực thi.
+ * + Bổn phận của hàm đc gọi(callee) là duy trì trạng thái của caller trong suốt quá trình gọi hàm.
+ * + Quyền của hàm đc gọi callee là có thể thay đổi trạng thái chương trình của hàm gọi caller.
+ * + Tiêu chuẩn này hoạt động như là một quy tắc hoặc đặc điểm kỹ thuật khi nhiều người đang cùng phát triển quy trình code và
+ * tất cả các quy trình đó cuối cùng sẽ đi đến một dự án duy nhất, sau đó tất cả phải tuân theo một đặc điểm kỹ thuật này.
+ *
+ * Lưu ý: + Khi trình biên dịch C biên dịch code cho kiến trúc ARM, nó phải tuân theo đặc điểm kỹ thuật AAPCS để tạo code liên
+ * quan đến caller và callee.
+ * + Theo tiêu chuẩn này, hàm 'C' có thể sửa đổi các thanh ghi R0,R1,R2,R3,R14,PSR và nó cũng không có trách nhiệm lưu các value
+ * thanh ghi trên trước khi có bất kỳ sửa đổi nào.
+ * Vd: ở hàm callee ta có code thay đổi các thanh ghi R0,R1,R2. Và trong caller ta có một số data quan trọng như R0,R1,R2.
+ * Ta có hàm y đang sửa đổi thanh ghi và sau đó trả về cho hàm x caller để làm các công việc khác. Vì vậy ta nói rằng hàm y
+ * chỉ có chức năng sửa đổi nọi dung còn chức năng lưu nội dung thì do caller đảm nhận. Trong caller, các việc gọi hàm
+ * là PUSH và việc nhận các thay đổi đăng ký nó vào các ngăn xếp(nhận return) đc gọi là POP.
+ */
+

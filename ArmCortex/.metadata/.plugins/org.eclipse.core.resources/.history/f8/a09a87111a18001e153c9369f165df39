@@ -1,0 +1,26 @@
+/*
+ * main1.c
+ *
+ *  Created on: Jun 25, 2023
+ *      Author: Minh
+ */
+/**
+ * Function call and AAPCS Standard - Tiêu chuẩn AAPCS và việc gọi hàm
+ * -------------------------------------------------------------------
+ * Ví dụ:
+ * //hàm 1
+ * void fun_x(void){
+ * 	int ret;
+ * 	ret = fun_y(1,2,4,5);
+ * }
+ *
+ * //hàm 2
+ * void fun_y(int a, int b, int c, int d){
+ * 	return(a+b+c+d);
+ * }
+ *
+ * Ta có ở hàm x ta sẽ gọi hàm y, x đc gọi là hàm Caller và y đc gọi là hàm callee
+ *
+ * Tiêu chuẩn AAPCS mô tả tiêu chuẩn gọi thủ tục đc sử dụng bởi binary interface cho ARM
+ */
+
