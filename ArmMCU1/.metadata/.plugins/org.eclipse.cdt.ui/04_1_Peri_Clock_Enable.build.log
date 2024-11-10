@@ -1,0 +1,21 @@
+21:20:19 **** Build of configuration Debug for project 04_1_Peri_Clock_Enable ****
+make -j8 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/tutorial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial.d" -MT"Src/tutorial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/tutorial.o"
+arm-none-eabi-gcc -o "04_1_Peri_Clock_Enable.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\04_1_Peri_Clock_Enable\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="04_1_Peri_Clock_Enable.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 04_1_Peri_Clock_Enable.elf
+ 
+arm-none-eabi-size   04_1_Peri_Clock_Enable.elf 
+arm-none-eabi-objdump -h -S  04_1_Peri_Clock_Enable.elf  > "04_1_Peri_Clock_Enable.list"
+   text	   data	    bss	    dec	    hex	filename
+    716	      8	   1568	   2292	    8f4	04_1_Peri_Clock_Enable.elf
+Finished building: default.size.stdout
+ 
+Finished building: 04_1_Peri_Clock_Enable.list
+ 
+
+21:20:21 Build Finished. 0 errors, 0 warnings. (took 1s.795ms)
+

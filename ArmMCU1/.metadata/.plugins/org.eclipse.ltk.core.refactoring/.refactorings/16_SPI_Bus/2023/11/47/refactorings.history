@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;16_SPI_Bus/tutorial_spi_bus&apos; to &apos;tutorial_spi_bus.c&apos;" description="Rename resource &apos;tutorial_spi_bus&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="tutorial_spi_bus" name="tutorial_spi_bus.c" stamp="1700902022080" updateReferences="true"/>
+</session>

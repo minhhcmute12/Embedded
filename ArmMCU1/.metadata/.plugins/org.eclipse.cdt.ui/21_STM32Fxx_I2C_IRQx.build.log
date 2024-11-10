@@ -1,0 +1,17 @@
+13:24:27 **** Incremental Build of configuration Debug for project 21_STM32Fxx_I2C_IRQx ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/11_i2c_slave_tx_testing.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/11_i2c_slave_tx_testing.d" -MT"Src/11_i2c_slave_tx_testing.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/11_i2c_slave_tx_testing.o"
+arm-none-eabi-gcc -o "21_STM32Fxx_I2C_IRQx.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\21_STM32Fxx_I2C_IRQx\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="21_STM32Fxx_I2C_IRQx.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 21_STM32Fxx_I2C_IRQx.elf
+ 
+arm-none-eabi-size   21_STM32Fxx_I2C_IRQx.elf 
+arm-none-eabi-objdump -h -S  21_STM32Fxx_I2C_IRQx.elf  > "21_STM32Fxx_I2C_IRQx.list"
+   text	   data	    bss	    dec	    hex	filename
+   4608	     64	   1608	   6280	   1888	21_STM32Fxx_I2C_IRQx.elf
+Finished building: default.size.stdout
+ 
+Finished building: 21_STM32Fxx_I2C_IRQx.list
+ 
+
+13:24:28 Build Finished. 0 errors, 0 warnings. (took 1s.193ms)
+

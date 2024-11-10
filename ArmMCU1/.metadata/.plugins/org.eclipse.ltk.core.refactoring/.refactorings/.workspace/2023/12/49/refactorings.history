@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;18_STM32xx_SPI_IRQx/Src/main.c&apos;" deleteContents="false" description="Delete resource &apos;18_STM32xx_SPI_IRQx/Src/main.c&apos;" element1="/18_STM32xx_SPI_IRQx/Src/main.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1701611984734"/>
+</session>

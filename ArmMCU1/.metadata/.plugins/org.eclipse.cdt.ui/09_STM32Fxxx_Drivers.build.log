@@ -1,0 +1,10 @@
+21:20:29 **** Build of configuration Debug for project 09_STM32Fxxx_Drivers ****
+make -j8 all 
+arm-none-eabi-size   09_STM32Fxxx_Drivers.elf 
+   text	   data	    bss	    dec	    hex	filename
+    676	      8	   1568	   2252	    8cc	09_STM32Fxxx_Drivers.elf
+Finished building: default.size.stdout
+ 
+
+21:20:29 Build Finished. 0 errors, 0 warnings. (took 371ms)
+

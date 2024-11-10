@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;20_STM32Fxx_Driver_I2C/drivers/Src/stm32f407xx_i2c_&apos;" deleteContents="false" description="Delete resource &apos;20_STM32Fxx_Driver_I2C/drivers/Src/stm32f407xx_i2c_&apos;" element1="/20_STM32Fxx_Driver_I2C/drivers/Src/stm32f407xx_i2c_" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1703642941651"/>
+</session>

@@ -1,0 +1,20 @@
+21:20:29 **** Build of configuration Debug for project 10_Led_Toggle_PushPull ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/001led_toggle.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/10_Led_Toggle_PushPull/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/001led_toggle.d" -MT"Src/001led_toggle.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/001led_toggle.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/10_Led_Toggle_PushPull/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/10_Led_Toggle_PushPull/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/tutorial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/10_Led_Toggle_PushPull/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial.d" -MT"Src/tutorial.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/tutorial.o"
+arm-none-eabi-gcc -o "10_Led_Toggle_PushPull.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\10_Led_Toggle_PushPull\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="10_Led_Toggle_PushPull.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 10_Led_Toggle_PushPull.elf
+ 
+arm-none-eabi-size   10_Led_Toggle_PushPull.elf 
+arm-none-eabi-objdump -h -S  10_Led_Toggle_PushPull.elf  > "10_Led_Toggle_PushPull.list"
+   text	   data	    bss	    dec	    hex	filename
+   1480	      8	   1568	   3056	    bf0	10_Led_Toggle_PushPull.elf
+Finished building: default.size.stdout
+ 
+Finished building: 10_Led_Toggle_PushPull.list
+ 
+
+21:20:31 Build Finished. 0 errors, 0 warnings. (took 1s.137ms)
+

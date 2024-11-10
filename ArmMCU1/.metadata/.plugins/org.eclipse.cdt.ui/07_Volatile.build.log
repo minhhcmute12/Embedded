@@ -1,0 +1,21 @@
+22:29:06 **** Incremental Build of configuration Debug for project 07_Volatile ****
+make -j8 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/tutorial_volatile.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial_volatile.d" -MT"Src/tutorial_volatile.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/tutorial_volatile.o"
+arm-none-eabi-gcc "../Src/volatile_interrupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/volatile_interrupt.d" -MT"Src/volatile_interrupt.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/volatile_interrupt.o"
+arm-none-eabi-gcc -o "07_Volatile.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\07_Volatile\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="07_Volatile.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 07_Volatile.elf
+ 
+arm-none-eabi-size   07_Volatile.elf 
+arm-none-eabi-objdump -h -S  07_Volatile.elf  > "07_Volatile.list"
+   text	   data	    bss	    dec	    hex	filename
+   5148	    124	   1908	   7180	   1c0c	07_Volatile.elf
+Finished building: default.size.stdout
+ 
+Finished building: 07_Volatile.list
+ 
+
+22:29:07 Build Finished. 0 errors, 0 warnings. (took 1s.112ms)
+

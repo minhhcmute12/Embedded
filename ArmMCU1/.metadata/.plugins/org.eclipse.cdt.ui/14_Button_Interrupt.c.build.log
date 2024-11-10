@@ -1,0 +1,21 @@
+21:20:36 **** Build of configuration Debug for project 14_Button_Interrupt.c ****
+make -j8 all 
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/14_Button_Interrupt.c/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_gpio_driver.d" -MT"drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_gpio_driver.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/003_button_interrupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/14_Button_Interrupt.c/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/003_button_interrupt.d" -MT"Src/003_button_interrupt.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/003_button_interrupt.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/14_Button_Interrupt.c/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/14_Button_Interrupt.c/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "14_Button_Interrupt.c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\14_Button_Interrupt.c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="14_Button_Interrupt.c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 14_Button_Interrupt.c.elf
+ 
+arm-none-eabi-size   14_Button_Interrupt.c.elf 
+arm-none-eabi-objdump -h -S  14_Button_Interrupt.c.elf  > "14_Button_Interrupt.c.list"
+   text	   data	    bss	    dec	    hex	filename
+   2392	      8	   1568	   3968	    f80	14_Button_Interrupt.c.elf
+Finished building: default.size.stdout
+ 
+Finished building: 14_Button_Interrupt.c.list
+ 
+
+21:20:37 Build Finished. 0 errors, 0 warnings. (took 1s.223ms)
+

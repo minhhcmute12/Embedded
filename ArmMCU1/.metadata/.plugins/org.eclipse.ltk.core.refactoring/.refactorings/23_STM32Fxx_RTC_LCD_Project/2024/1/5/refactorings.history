@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;23_STM32Fxx_RTC_LCD_Project/Src/14_rtc_ds1307_testing_c&apos; to &apos;14_rtc_ds1307_testing.c&apos;" description="Rename resource &apos;14_rtc_ds1307_testing_c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Src/14_rtc_ds1307_testing_c" name="14_rtc_ds1307_testing.c" stamp="1706415241030" updateReferences="true"/>
+</session>

@@ -1,0 +1,20 @@
+23:07:44 **** Incremental Build of configuration Debug for project 17_STM32Fxx_Driver_SPI ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/006_spi_cmd_handling.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/17_STM32Fxx_Driver_SPI/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/006_spi_cmd_handling.d" -MT"Src/006_spi_cmd_handling.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/006_spi_cmd_handling.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/17_STM32Fxx_Driver_SPI/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/17_STM32Fxx_Driver_SPI/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/tutorial_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/17_STM32Fxx_Driver_SPI/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial_spi_driver.d" -MT"Src/tutorial_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/tutorial_spi_driver.o"
+arm-none-eabi-gcc -o "17_STM32Fxx_Driver_SPI.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\17_STM32Fxx_Driver_SPI\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="17_STM32Fxx_Driver_SPI.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 17_STM32Fxx_Driver_SPI.elf
+ 
+arm-none-eabi-size   17_STM32Fxx_Driver_SPI.elf 
+arm-none-eabi-objdump -h -S  17_STM32Fxx_Driver_SPI.elf  > "17_STM32Fxx_Driver_SPI.list"
+   text	   data	    bss	    dec	    hex	filename
+   8052	    100	   1900	  10052	   2744	17_STM32Fxx_Driver_SPI.elf
+Finished building: default.size.stdout
+ 
+Finished building: 17_STM32Fxx_Driver_SPI.list
+ 
+
+23:07:45 Build Finished. 0 errors, 0 warnings. (took 1s.161ms)
+
