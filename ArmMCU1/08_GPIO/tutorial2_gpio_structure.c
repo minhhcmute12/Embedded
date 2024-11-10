@@ -122,18 +122,18 @@ gọi là Generral Purpose, tuy nhiên một số Pin ko thể sử dụng cho t
  ^Tín hiệu output từ processor và Output data Register là '1', qua cổng Logic_Đảo ta có trạng thái là '0' đồng nghĩa
  là mạch bị hở tại điểm chung Floating(điểm chung P-Mos và N-MOS, transistor N-MOS lúc này bị vô hiệu hóa)
  Chân pin Output sẽ kết nối với Floating(Open Drain)->Pin->LED->Rx->VCC => Mạch hở (Nhiễu mạch xảy ra)
- =>Không thể sử dụng sơ đồ 1 cho điều khiển led bằng pp Open Drain, Vì nếu dùng pull-down thì led vẫn sáng mà dùng
+ =>KHÔNG thể sử dụng sơ đồ 1 cho điều khiển led bằng pp Open Drain, Vì nếu dùng pull-down thì led vẫn sáng mà dùng
  pull-up thì sẽ có 2 nguồn VCC,VDD có thể đoản mạch.
 
 + Sơ đồ kết nối 2: Processor->Output data Register ->Logic_Đảo->Transistor(P-Mos_0/N-Mos_1)->Pin->Led->Rx->GND
  ^Giải pháp: ta cần kích hoạt một internal/external pull-up/pull-down để xử lý vấn đề floating
  ^Tín hiệu output từ processor và Output data Register là '0', qua cổng Logic_Đảo ta có trạng thái là '1' đồng nghĩa
- là sử dụng transistor "N-Mos(GND)".
-  ~(KO cần cấu hình Internal)Chân pin Output sẽ kết nối với GND(P-Mos)->Pin->LED->Rx->-GND => Đèn led sẽ tắt
-  ~External: Chân pin Output sẽ kết nối với VCC(external)->GND(P-Mos) => Đèn led sẽ tắt(dòng điện ko qua led)
+ là mạch bị hở tại điểm chung Floating(điểm chung P-Mos và N-MOS,transistor N-MOS và P-MOS lúc này đều bị vô hiệu hóa)
+  ~(KO cần cấu hình Internal)Chân pin Output sẽ kết nối với GND(N-Mos)->Pin->LED->Rx->GND => Đèn led sẽ tăt
+  ~External: Chân pin Output sẽ kết nối với VCC(external)->GND(N-Mos) => Đèn led sẽ tắt(dòng điện ko qua led)
 
- ^Tín hiệu output từ processor và Output data Register là '1', qua cổng Logic_Đảo ta có trạng thái là '0' đồng nghĩa
- là mạch bị hở tại điểm chung Floating(điểm chung P-Mos và N-MOS,transistor N-MOS lúc này bị vô hiệu hóa)
+ ^Tín hiệu output từ processor và Output data Register là '1', qua cổng Logic_Đảo ta có trạng thái là '0', thì ta kích
+ hoạt đc N-MOS hoạt động
   ~Tiến hành cấu hình internal pull-up cho mạch:
   Chân pin Output sẽ kết nối với VDD(pull-up)->Pin->LED->Rx->GND => Đèn led sẽ bật
 

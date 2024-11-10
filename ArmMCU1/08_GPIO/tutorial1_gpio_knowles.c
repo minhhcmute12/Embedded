@@ -138,7 +138,7 @@ Mô phỏng: 	+VCC										+VCC
 			  |											  |
 			  Ri_điệntrở nội					         Re_điệntrở ngoại
 			  |											  |
-			  Drain---Pin---				Drain---Pin---|---Button---GND
+			  Drain---Pin---				Drain---Pin---|
 			  |								  |
 	VĐK----Transistor				VĐK----Transistor
 			  |								  |
@@ -154,19 +154,18 @@ trở internal pull-up thì bạn nên cân nhắc tạo mạch external pull-up
 					  |
 			    Ri_(điệntrở nội)
 				      |
-			        Drain---Pin---LED----R_led----GND
+			        Drain
 			          |
-VĐK--Logic_đảo---G_Transistor
+VĐK--Logic_đảo---G_Transistor ---Pin---LED----R_led----GND
 					 S|
 					 GND
  ^Khi bạn muốn bật đèn LED, bạn code đầu ra từ "VĐK" có logic là '1'. Khi qua "Logic_đảo" thì mức logic trở thành '0', thì lúc
- này "Transistor" sẽ bị vô hiệu hóa(Disable) hoặc turn_off(Nhánh từ Transistor xuống GND bị off). LED sẽ đc điều khiển đến nguồn
+ này "Transistor" sẽ đc kích hoạt(Eable) hoặc turn_on(Nhánh từ Transistor xuống GND on). LED sẽ đc kết nối đến nguồn
  VCC(nói cách khác là LED sẽ đc kết nối với nguồn VCC và thông mạch) bằng "Register pull-up" và nó sẽ làm sáng đèn LED.
 
  ^Khi bạn muốn tắt đèn LED, bạn code đầu ra từ "VĐK" có logic là '0'. Khi qua "Logic_đảo" thì mức logic trở thành '1', thì lúc
- này "Transistor" sẽ đc kích hoạt(Enable) hoặc turn_on(Nhánh từ Transistor xuống GND được on - thông mạch). Nghĩa là lúc này
- dòng điện sẽ từ VCC chảy thằng xuống S_GND đc nối với Transistor mà ko chạy qua mạch LED, điều này làm cho mạch LED ko còn nguồn
- điện duy trì dẫn tới đèn LED tắt.
+ này "Transistor" sẽ đc vô hiệu hóa(Disable) hoặc turn_off, đồng thời trong Open Drain thì P_Mos ko đc sử dụng. Nghĩa là lúc
+ này dòng điện sẽ ngắt, điều này làm cho mạch LED ko còn nguồn  điện duy trì dẫn tới đèn LED tắt.
  ^Điện trỏ R pull-up phải có giá trị cố định(từ 10kOM đến 50kOM)
  ^Thêm: bạn cũng có thể điều khiển trạng thái của LED bằng cách sử dụng I2C Bus
  ^Drain(thuộc Transistor) trong vd này như là chiếc cần gạt công tắc chuyển hướng dòng điện
