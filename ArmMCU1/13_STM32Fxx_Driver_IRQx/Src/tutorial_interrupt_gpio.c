@@ -147,6 +147,63 @@ sẽ khác với cách bạn xử lý ngắt với GPIO.
 khi ban muốn triển khai hàm ngắt(ISR) chỉ cần copy tên hàm ngắt đó ra và sau đó copy hàm thực hiện chức năng ngắt
  ^Vd: Ta muốn thiết lập hàm "void EXTI0_IRQHandler(void)", EXTI0_IRQHandler là hàm đã đc khai báo trong file startup_stm32xxx,
  ta tiến hành copy tên hàm ra file main.c, sau đó copy hàm "GPIO_IRQHangling(0)"(GPIO_IRQHangling hàm xử lý ngắt cho IRQ0
- đc viết trong file stm32f407xx_gpio_driver.c) vào trong nội dung hàm EXTI0_IRQHandler()
+ đc viết trong file stm32f407xx_gpio_driver.c) vào trong nội dung hàm EXTI0_IRQHandler() 
 */
+/** Gemini
++ Ngắt là gì: Trong lập trình nhúng, ngắt là một cơ chế cho phép vi điều khiển tạm dừng việc thực hiện chương trình chính để xử 
+lý một sự kiện nào đó. Sự kiện này có thể là một tín hiệu từ bên ngoài (như nhấn nút, thay đổi trạng thái của một cảm biến) 
+hoặc một sự kiện bên trong (như timer hết giờ, lỗi bộ nhớ).
 
++ Tại sao sử dụng ngắt
+ ->Tăng hiệu suất: Thay vì liên tục kiểm tra trạng thái của các thiết bị ngoại vi, vi điều khiển chỉ cần xử lý khi có sự kiện 
+ngắt xảy ra, giúp tiết kiệm tài nguyên CPU.
+ ->Đáp ứng nhanh các sự kiện thời gian thực: Ngắt cho phép vi điều khiển phản ứng nhanh chóng với các sự kiện quan trọng, 
+đảm bảo hệ thống hoạt động ổn định và chính xác.
+ ->Cấu trúc chương trình rõ ràng: Việc sử dụng ngắt giúp chia nhỏ chương trình thành các phần xử lý khác nhau, làm cho code 
+ dễ đọc và bảo trì hơn.
+ 
++ Ngắt trong STM32F407: STM32F407 hỗ trợ nhiều loại ngắt khác nhau, bao gồm:
+ -Ngắt ngoại vi (EXTI): Các ngắt được kích hoạt bởi các sự kiện bên ngoài như thay đổi trạng thái của chân GPIO.
+ -Ngắt timer: Các ngắt được kích hoạt khi timer hết giờ.
+ -Ngắt DMA: Các ngắt được kích hoạt khi quá trình truyền dữ liệu DMA hoàn thành.
+ -Ngắt ngoại lệ: Các ngắt được kích hoạt bởi các sự kiện bất thường như chia cho 0, tràn bộ đếm,...
+
++ Ví dụ: Ngắt nút nhấn trên STM32F407: Giả sử chúng ta có một nút nhấn được kết nối với chân PA0 và muốn thực hiện một 
+hành động khi nút nhấn được nhấn. Các bước thực hiện:
+B1.Cấu hình chân GPIO: Thiết lập chân PA0 làm chân nhập. Kích hoạt ngắt cho chân PA0.
+Cấu hình loại cạnh kích hoạt ngắt (sườn lên, sườn xuống hoặc cả hai).
+
+B2: Viết hàm xử lý ngắt: Hàm này sẽ được gọi tự động khi ngắt xảy ra. Trong hàm này, chúng ta sẽ thực hiện các tác vụ cần 
+thiết khi nút nhấn được nhấn.
+
+B3: Kích hoạt ngắt trong NVIC: NVIC (Nested Vectored Interrupt Controller) là một đơn vị quản lý các ngắt trong vi điều khiển. 
+Chúng ta cần kích hoạt ngắt cho chân PA0 trong NVIC.
+
+#include "stm32f4xx_hal.h"
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == GPIO_PIN_0)
+  {
+    // Thực hiện hành động khi nút nhấn được nhấn
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5); // Đảo trạng thái của chân PB5
+  }
+}
+int main(void)
+{
+  // ... Khởi tạo các thành phần khác ...
+
+  // Cấu hình ngắt cho chân PA0
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+
+  while (1)
+  {
+    // Chương trình chính
+  }
+}
+
+//HAL_GPIO_EXTI_Callback: Hàm này được gọi tự động khi ngắt xảy ra.
+//GPIO_Pin == GPIO_PIN_0: Kiểm tra xem ngắt có phải do chân PA0 gây ra hay không.
+//HAL_GPIO_TogglePin: Đảo trạng thái của chân PB5 để báo hiệu nút đã được nhấn (ví dụ: bật/tắt một LED).
+
+*/
