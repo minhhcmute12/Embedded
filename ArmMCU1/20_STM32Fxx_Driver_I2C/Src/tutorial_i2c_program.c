@@ -68,17 +68,23 @@ clock setting) I2C và các bộ định thời I2C khác như thời gian thi�
  ^Xung Clock 16MHz từ bộ Processor sẽ qua bộ chia APB1 prescaler(vì I2C nằm ở APB1 Bus). Vì APB1 prescaler ta set bằng 1 nên
  tần số output vẫn là 16MHz. Trước khi từ APB1 Bus vào I2C Periperal thì xung Clock sẽ đi qua thêm một khối "CR2_FREQ",
  số bit đc cấu hình ở khối "CR2_FREQ" sẽ quyết định tốc độ CLK của I2C Periperal.
+ 
++ Tần số (Hz): Đây là đơn vị đo số lần lặp lại của một sự kiện trong một giây. Ví dụ, 16MHz có nghĩa là một sự kiện lặp lại 
+16*10^6 =  16.000.000(Hz) lần trong 1 giây. 
+  Nếu bạn muốn biết thời gian để hoàn thành 1 chu kỳ của một tín hiệu có tần số 16MHz, bạn có thể tính như sau:
+  Chu kỳ: 1 / (16*10^6) Hz = 0.0000000625 giây = 62.5 nano giây (ns) = 62.5 * 10^-9 second
 
 + Bài tập 1: In Standard Mode, generate a 100KHz SCL frequency APB1 Bus Clock(PCLK) = 16KHz
  ^Các bước tiến hành:
   1. Cấu hình chế độ trong CCR register(bit 15)
-  2. Lập trình trường FREQ của CR2 với giá trị PCLK1= 16KHz = 62.5 * 10^-9 nano second
+  2. Lập trình trường FREQ của CR2 với giá trị PCLK1= 16KHz = 62.5 * 10^-9 second
   3. Tính toán và lập trình giá trị CCR trong trường CCR của thanh ghi CCR
   T_high = CCR * T_PCLK1 hoặc T_low = CCR * T_PCLK1
   Trong chế độ Standard Mode thì thời gian chu kỳ xung của T_high và T_low là tương đối bằng nhau
 
  ^Sử dụng bit15 F/S của Thanh ghi I2C_CCR để cấu hình chế độ là Standard Mode(0)
- ->Ta có Standard Mode = 100KHz(10 chu kỳ xung) -> thời gian cho một chu kỳ xung(T_high + T_low) là 10 micro second
+ -> Ta có Standard Mode = 100KHz = 100.000 Hz -> Chu kỳ T = 1 / 100.000 = 0.00001 giây = 10 micro giây (µs)
+ -> thời gian cho một chu kỳ xung(T_high + T_low) là 10 micro second
  -> Thời gian hoạt động cạnh xung lên 	T_high(SCL) = 5ms
  -> Thời gian hoạt động cạnh xung xuống T_low(SCL) = 5ms
  -> Công thức: T_high = CCR * T_PCLK1 <=> 5*10^-6 = CCR * 62.5 * 10^-9 -> CCR = (5/62.5)*1000 = 80 = 0x50
@@ -88,7 +94,7 @@ clock setting) I2C và các bộ định thời I2C khác như thời gian thi�
  ^Các bước tiến hành:
   1. Cấu hình chế độ trong CCR register(bit 15)
   2. Lựa chọn "the duty cycle" của Fast Mode SCL trong thanh ghi CCR(bit 14)
-  3. Lập trình trường FREQ của CR2 với giá trị PCLK1= 16KHz = 62.5 * 10^-9 nano second
+  3. Lập trình trường FREQ của CR2 với giá trị PCLK1= 16KHz = 62.5 * 10^-9 second
   4. Tính toán và lập trình giá trị CCR trong trường CCR của thanh ghi CCR
   If Duty=0 -> T_high = CCR * T_PCLK1 và T_low = 2* CCR * T_PCLK1
   If Duty=1(400KHz) -> T_high = 9* CCR * T_PCLK1 và T_low = 16 * CCR * T_PCLK1
@@ -100,7 +106,8 @@ clock setting) I2C và các bộ định thời I2C khác như thời gian thi�
  ^Sử dụng bit15 F/S của Thanh ghi I2C_CCR để cấu hình chế độ là Fast Mode(1)
  -> Sử dụng bit14 Duty của Thanh ghi I2C_CCR để cấu hình Duty(0)
  -> Vì Duty=0 nên: Chu kỳ xung T_high +T_low = 3*CCR*PCLK1
- -> Có: 200KHz = 5*10^-6 ; PCLK1=16KHz=62.5 * 10^-9
+ -> Fast Mode = 200KHz -> Chu kỳ T = 1 / 200.000 = 0.000005 giây = 5 micro giây (µs) = 5*10^-6 second
+ -> PCLK1 = 16KHz = 62.5 * 10^-9
  => CCR = (5*10^-6 / (3*62.5 * 10^-9)) = 26
  => Ta tiến hành cấu hình thanh ghi CR2 với trường bit FREQ = 16 và thanh ghi CCR với trường bit CCR = 26
 
@@ -147,11 +154,11 @@ mức thấp, nó sẽ tạm dừng hoạt động I2C trong giây lát.
 
  ^EV8_2: TxE=1, BTF=1, Program stop request, TxE and BTF are cleared by hardware by the stop condition.
  Vd nếu hoàn thành chuyển byte cuối cùng DataN xong thì cờ TxE=1, DR=null, SR=null cộng với BTF=1 thì tạo điều kiện Stop
- Nguyên nhận vì khi EV8 xảy ra thì các SCL line đều ỏ mức Low(gián đoạn tạm thời chương trình), vì vậy lúc này ta cần
+ Nguyên nhân vì khi EV8 xảy ra thì các SCL line đều ỏ mức Low(gián đoạn tạm thời chương trình), vì vậy lúc này ta cần
  cấu hình BTF(Byte Tranfer Finish) lên high, để thông báo cho processor đã truyền dữ liệu xong.
  Nếu ko cấu hình BTF=1, thì lúc này ko thể xóa sự kiện EV8(ko còn data để ghi vào DR) dẫn đến chương trình bị treo.
 
- ^Lưu ý: The EV5.EV6,EV8_1,EV8_2,EV9 events xảy ra thì chúng sẽ kéo xung trên SCL line xuống Low cho đến khi hết sự kiện
+ ^Lưu ý: The EV5,EV6,EV8_1,EV8_2,EV9 events xảy ra thì chúng sẽ kéo xung trên SCL line xuống Low cho đến khi hết sự kiện
  Nghĩa là vd sau khi có điều kiện S(Start) thì EV5 xảy ra sẽ kéo SCL xuống low làm gián đoạn chương trình. Khi EV5 hoàn
  tất(bit SB bị xóa) thì SCL trở lại high, chương trình sẽ tiếp đến khối Address. Nếu có sự cố nào đó bit SB ko bị xóa,
  thì chương trình sẽ bị treo ở sự kiện EV5.
@@ -260,7 +267,7 @@ Arduino sẽ được hiển thị trên serial monitor terminal của Arduino I
 *==Exercise: Testing(V203)
 + Code bài chưa tối ưu nên có một số vấn đề xảy ra khi gửi dữ liệu
  ^Sau khi kiểm tra: có sự gián đoạn trên SDA line(PB9), Nguyên nhân là PB9 pin trên STM32407 Board đang cùng thực hiện
- một chức năng khác của mạch tren board dẫn đến đôi lúc PB9 busy. Cách khắc phục là chọn một pin khác(ko thực hiện chức
+ một chức năng khác của mạch trên board dẫn đến đôi lúc PB9 busy. Cách khắc phục là chọn một pin khác(ko thực hiện chức
  năng trên board- not busy) để cấu hình SDA line -> Sau khi tra datasheet chọn PB7
 
  ==>Việc sử dụng các phần mềm hoặc osciloscope để quan sát mạch tín hiệu là rất quan trọng

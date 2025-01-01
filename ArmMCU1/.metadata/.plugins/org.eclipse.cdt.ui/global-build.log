@@ -1,14 +1,14 @@
-18:54:59 **** Incremental Build of configuration Debug for project 23_STM32Fxx_RTC_LCD_Project ****
+23:05:05 **** Incremental Build of configuration Debug for project 29_M_STM32F4xx_UART ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/14_rtc_ds1307_testing.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/23_STM32Fxx_RTC_LCD_Project/bsp" -I"C:/Users/Minh/Documents/ArmMCU1/23_STM32Fxx_RTC_LCD_Project/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/14_rtc_ds1307_testing.d" -MT"Src/14_rtc_ds1307_testing.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/14_rtc_ds1307_testing.o"
-arm-none-eabi-gcc -o "23_STM32Fxx_RTC_LCD_Project.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\23_STM32Fxx_RTC_LCD_Project\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="23_STM32Fxx_RTC_LCD_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 23_STM32Fxx_RTC_LCD_Project.elf
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_usart_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/29_M_STM32F4xx_UART/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_usart_driver.d" -MT"drivers/Src/stm32f407xx_usart_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_usart_driver.o"
+arm-none-eabi-gcc -o "29_M_STM32F4xx_UART.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\29_M_STM32F4xx_UART\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="29_M_STM32F4xx_UART.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 29_M_STM32F4xx_UART.elf
  
-arm-none-eabi-size   23_STM32Fxx_RTC_LCD_Project.elf 
-arm-none-eabi-objdump -h -S  23_STM32Fxx_RTC_LCD_Project.elf  > "23_STM32Fxx_RTC_LCD_Project.list"
+arm-none-eabi-size   29_M_STM32F4xx_UART.elf 
+arm-none-eabi-objdump -h -S  29_M_STM32F4xx_UART.elf  > "29_M_STM32F4xx_UART.list"
    text	   data	    bss	    dec	    hex	filename
-   9564	    124	   1964	  11652	   2d84	23_STM32Fxx_RTC_LCD_Project.elf
+   3404	   1056	   1600	   6060	   17ac	29_M_STM32F4xx_UART.elf
 Finished building: default.size.stdout
  
-Finished building: 23_STM32Fxx_RTC_LCD_Project.list
+Finished building: 29_M_STM32F4xx_UART.list
  

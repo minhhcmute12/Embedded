@@ -52,7 +52,7 @@ int main(void)
 	Gpio_Led.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;			//Chọn pull-up(kéo lên) thông mạch nút nhấn
 
 	//Cấu hình xung Clock cho Peripheral Port Button
-	GPIO_PeriClockControl(GPIOB, ENABLE);		//Port D và Enalbe=1
+	GPIO_PeriClockControl(GPIOB, ENABLE);		//Port B và Enalbe=1
 
 	//Gọi hàm kjhởi tạo hoạt động cấu hình muốn điều khiển(ở đây muốn điều khiển Input Button)
 	GPIO_Init(&GPIOBtn);

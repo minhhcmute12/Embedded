@@ -41,13 +41,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_macro  00001f3a  00000000  00000000  0001183c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   00001050  00000000  00000000  00013776  2**0
+ 19 .debug_line   0000104d  00000000  00000000  00013776  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    000089a0  00000000  00000000  000147c6  2**0
+ 20 .debug_str    000089a0  00000000  00000000  000147c3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  00000288  00000000  00000000  0001d168  2**2
+ 21 .debug_frame  00000288  00000000  00000000  0001d164  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000005f  00000000  00000000  0001d3f0  2**0
+ 22 .debug_line_str 0000005f  00000000  00000000  0001d3ec  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1253,26 +1253,26 @@ void GPIO_IRQHangling(uint8_t PinNumber)
  80008ba:	fa01 f202 	lsl.w	r2, r1, r2
  80008be:	4013      	ands	r3, r2
  80008c0:	2b00      	cmp	r3, #0
- 80008c2:	d00a      	beq.n	80008da <GPIO_IRQHangling+0x32>
+ 80008c2:	d009      	beq.n	80008d8 <GPIO_IRQHangling+0x30>
 	{
-		EXTI->PR &= ~(1 << PinNumber); 		//Clear bit trong PR(Pending Register EXTI)
+		EXTI->PR |= (1 << PinNumber); 		//Clear bit trong PR(Pending Register EXTI)
  80008c4:	4b07      	ldr	r3, [pc, #28]	; (80008e4 <GPIO_IRQHangling+0x3c>)
  80008c6:	695b      	ldr	r3, [r3, #20]
  80008c8:	79fa      	ldrb	r2, [r7, #7]
  80008ca:	2101      	movs	r1, #1
  80008cc:	fa01 f202 	lsl.w	r2, r1, r2
- 80008d0:	43d2      	mvns	r2, r2
- 80008d2:	4611      	mov	r1, r2
- 80008d4:	4a03      	ldr	r2, [pc, #12]	; (80008e4 <GPIO_IRQHangling+0x3c>)
- 80008d6:	400b      	ands	r3, r1
- 80008d8:	6153      	str	r3, [r2, #20]
+ 80008d0:	4611      	mov	r1, r2
+ 80008d2:	4a04      	ldr	r2, [pc, #16]	; (80008e4 <GPIO_IRQHangling+0x3c>)
+ 80008d4:	430b      	orrs	r3, r1
+ 80008d6:	6153      	str	r3, [r2, #20]
 	}
 }
- 80008da:	bf00      	nop
- 80008dc:	370c      	adds	r7, #12
- 80008de:	46bd      	mov	sp, r7
- 80008e0:	bc80      	pop	{r7}
- 80008e2:	4770      	bx	lr
+ 80008d8:	bf00      	nop
+ 80008da:	370c      	adds	r7, #12
+ 80008dc:	46bd      	mov	sp, r7
+ 80008de:	bc80      	pop	{r7}
+ 80008e0:	4770      	bx	lr
+ 80008e2:	bf00      	nop
  80008e4:	40013c00 	.word	0x40013c00
 
 080008e8 <memset>:

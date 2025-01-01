@@ -126,7 +126,7 @@ int main(void)
 
 		//First lets enable the reception in interrupt mode - this code enables the receive interrupt
 		//Trước tiên, hãy kích hoạt việc nhận ở chế độ ngắt - mã này cho phép ngắt nhận
-		while (USART_ReceiveDataIT(&usart2_handle,rx_buf,strlen(msg[cnt])) != USART_READY );
+		while (USART_ReceiveDataIT(&usart2_handle,rx_buf,strlen(msg[cnt])) != USART_READY);
 		//Mục đích sử dụng hàm "USART_ReceiveDataIT" là để set bit RXNEIE từ đó kích hoạt hàm "USART2_IRQHandler"
 
 		//Send the msg indexed by cnt in blocking mode - Gửi tin nhắn được lập chỉ mục bởi cnt ở chế độ chặn

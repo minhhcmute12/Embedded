@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;29_M_STM32F4xx_UART/Src/main.c&apos;" deleteContents="false" description="Delete resource &apos;29_M_STM32F4xx_UART/Src/main.c&apos;" element1="/29_M_STM32F4xx_UART/Src/main.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1735648334116"/>
+</session>

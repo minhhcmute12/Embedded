@@ -7,6 +7,7 @@
 
 
 #include "lcd.h"
+#include "stm32f407xx_gpio_driver.h"
 
 static void write_4_bits(uint8_t value);
 static void lcd_enable(void);
@@ -101,7 +102,7 @@ void lcd_init(void)
 {
 	//1. Configure the gpio pins which are used for LCD connections
 	//Định cấu hình các chân gpio được sử dụng cho kết nối LCD
-	GPIO_Handle_t lcd_signal;				//Struct đại diện Cấu hình chân GPIO
+	GPIOx_Handle_t lcd_signal;				//Struct đại diện Cấu hình chân GPIO
 
 	//Cấu hình portD kết nối và các thông số cho từng pin kết nối
 	lcd_signal.pGPIOx = LCD_GPIO_PORT;								//PortD
@@ -174,8 +175,6 @@ void lcd_init(void)
 
 	//entry mode set
 	lcd_send_command(LCD_CMD_INCADD);
-
-
 
 }
 

@@ -1,0 +1,23 @@
+22:39:12 **** Incremental Build of configuration Debug for project 28_M_STM32F4xx_I2C ****
+make -j8 all 
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_gpio_driver.d" -MT"drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_gpio_driver.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_i2c_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_i2c_driver.d" -MT"drivers/Src/stm32f407xx_i2c_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_i2c_driver.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_spi_driver.d" -MT"drivers/Src/stm32f407xx_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_spi_driver.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/08_i2c_master_tx_testing.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/08_i2c_master_tx_testing.d" -MT"Src/08_i2c_master_tx_testing.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/08_i2c_master_tx_testing.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/drivers/Inc" -I"C:/Users/Minh/Documents/ArmMCU1/28_M_STM32F4xx_I2C/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "28_M_STM32F4xx_I2C.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\28_M_STM32F4xx_I2C\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="28_M_STM32F4xx_I2C.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 28_M_STM32F4xx_I2C.elf
+ 
+arm-none-eabi-size   28_M_STM32F4xx_I2C.elf 
+arm-none-eabi-objdump -h -S  28_M_STM32F4xx_I2C.elf  > "28_M_STM32F4xx_I2C.list"
+   text	   data	    bss	    dec	    hex	filename
+   3196	     48	   1576	   4820	   12d4	28_M_STM32F4xx_I2C.elf
+Finished building: default.size.stdout
+ 
+Finished building: 28_M_STM32F4xx_I2C.list
+ 
+
+22:39:13 Build Finished. 0 errors, 0 warnings. (took 1s.328ms)
+

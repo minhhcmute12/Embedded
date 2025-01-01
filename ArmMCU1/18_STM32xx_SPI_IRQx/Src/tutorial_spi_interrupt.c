@@ -41,6 +41,36 @@ TI frame format error						FRE					ERRIE
   Đây đc gọi là đường ngắt interrupt trực tiếp từ Periperal. Nếu bạn có 5 SPI Interrupt thì có thể kết nối trực tiếp
   với 5 IRQx của NVIC
   -> Cần định nghĩa các SPI_x nối với các IRQx của NVIC Register
+  
++ Hiểu về "attribute((weak))": Trong C, từ khóa __attribute__((weak)) được sử dụng để đánh dấu một hàm hoặc biến là "yếu". Điều này có nghĩa là:
+ ^Định nghĩa mặc định: Hàm hoặc biến này có thể có một định nghĩa mặc định trong file hiện tại.
+ ^Có thể bị ghi đè: Nếu một định nghĩa khác (mạnh hơn) của hàm hoặc biến này được cung cấp trong một file khác được liên kết, thì định nghĩa 
+ mạnh hơn sẽ được sử dụng.
+ ^Tại sao sử dụng attribute((weak))?
+  -Tùy biến: Cho phép người dùng tùy chỉnh hành vi của một hàm hoặc biến mà không cần sửa đổi code nguồn gốc.
+  -Thư viện: Được sử dụng rộng rãi trong các thư viện để cung cấp các hàm mặc định có thể bị ghi đè bởi người dùng.
+  -Truyền tải: Cho phép truyền tải các hàm hoặc biến từ một thư viện đến một dự án khác mà không gây ra xung đột nếu dự án đã có định nghĩa
+  của riêng mình.
+ ^Áp dụng trong STM32F4: Trong lập trình STM32F4, __attribute__((weak)) thường được sử dụng để:
+  -Tùy biến các hàm callback: Các hàm callback như HAL_GPIO_MspInit() thường được khai báo là weak để người dùng có thể tự định nghĩa lại để 
+  thực hiện các cấu hình bổ sung.
+  -Cung cấp các hàm mặc định: Thư viện HAL cung cấp các hàm mặc định cho nhiều chức năng, người dùng có thể ghi đè để thực hiện các chức năng 
+  tùy chỉnh.
+  -Vd:
+	// Trong file stm32f4xx_hal_msp.c (thư viện HAL)
+	void HAL_GPIO_MspInit(GPIO_TypeDef* GPIOx) __attribute__((weak));
+
+	// Trong file main.c của dự án
+	void HAL_GPIO_MspInit(GPIO_TypeDef* GPIOx)
+	{
+	// Cấu hình GPIO theo yêu cầu của dự án
+	// ...
+	}
+	
+ ^Lưu ý khi sử dụng:
+  -Tránh xung đột: Khi định nghĩa lại một hàm weak, hãy đảm bảo rằng giao diện của hàm mới tương thích với giao diện của hàm gốc.
+  -Sử dụng đúng cách: Không lạm dụng việc sử dụng weak, chỉ sử dụng khi cần thiết để tránh gây ra nhầm lẫn.
+  -Hiểu rõ cơ chế: Hiểu rõ cách linker hoạt động khi gặp các hàm weak để tránh các vấn đề không mong muốn.
 
 + Exercise1: Complete SPI IRQ number definition macros in MCU specific header file
  ^Hoàn thành các macro định nghĩa số SPI IRQ trong tệp tiêu đề cụ thể của MCU

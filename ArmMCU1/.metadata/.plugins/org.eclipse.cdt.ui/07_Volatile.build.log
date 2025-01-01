@@ -1,4 +1,4 @@
-22:29:06 **** Incremental Build of configuration Debug for project 07_Volatile ****
+22:38:09 **** Build of configuration Debug for project 07_Volatile ****
 make -j8 all 
 arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
 arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
@@ -17,5 +17,5 @@ Finished building: default.size.stdout
 Finished building: 07_Volatile.list
  
 
-22:29:07 Build Finished. 0 errors, 0 warnings. (took 1s.112ms)
+22:38:11 Build Finished. 0 errors, 0 warnings. (took 1s.241ms)
 

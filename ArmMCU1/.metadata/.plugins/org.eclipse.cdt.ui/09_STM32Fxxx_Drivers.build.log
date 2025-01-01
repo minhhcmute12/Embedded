@@ -1,10 +1,18 @@
-21:20:29 **** Build of configuration Debug for project 09_STM32Fxxx_Drivers ****
+22:38:12 **** Build of configuration Debug for project 09_STM32Fxxx_Drivers ****
 make -j8 all 
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/09_STM32Fxxx_Drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_gpio_driver.d" -MT"drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_gpio_driver.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/09_STM32Fxxx_Drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "09_STM32Fxxx_Drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\09_STM32Fxxx_Drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="09_STM32Fxxx_Drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 09_STM32Fxxx_Drivers.elf
+ 
 arm-none-eabi-size   09_STM32Fxxx_Drivers.elf 
+arm-none-eabi-objdump -h -S  09_STM32Fxxx_Drivers.elf  > "09_STM32Fxxx_Drivers.list"
    text	   data	    bss	    dec	    hex	filename
     676	      8	   1568	   2252	    8cc	09_STM32Fxxx_Drivers.elf
 Finished building: default.size.stdout
  
+Finished building: 09_STM32Fxxx_Drivers.list
+ 
 
-21:20:29 Build Finished. 0 errors, 0 warnings. (took 371ms)
+22:38:13 Build Finished. 0 errors, 0 warnings. (took 1s.243ms)
 

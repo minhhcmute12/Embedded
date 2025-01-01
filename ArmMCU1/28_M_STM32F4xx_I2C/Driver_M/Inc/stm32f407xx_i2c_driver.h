@@ -19,7 +19,7 @@ typedef struct
 	uint32_t I2C_SCLSpeed;
 	uint8_t  I2C_DeviceAddress;
 	uint8_t  I2C_AckControl;
-	uint8_t  I2C_FmDutyCucle;
+	uint8_t  I2C_FmDutyCycle;
 }I2C_Config_t;
 
 /**
@@ -56,8 +56,8 @@ typedef struct
 /**
  * @STOP Condition use or not use
  */
-#define I2C_DISABLE_SR		RESET
-#define I2C_ENABLE_SR		SET
+#define I2C_DISABLE_SR		RESET				/* 0: tạo điều kiện Stop sau khi đã truyền data xong */
+#define I2C_ENABLE_SR		SET					/* 1: bắt đầu chu kỳ truyền data mới mà không tạo điều kiện STOP */
 
 /*
  * I2C related status flags definition
@@ -84,7 +84,7 @@ typedef struct
 /*
  * Peripheral Clock Setup for I2C
  */
-void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);				//APIs Peripheral Clock
+void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);				//APIs Peripheral Clock - Cấp xung clock cho I2C
 
 /*
  * Init and De-Init

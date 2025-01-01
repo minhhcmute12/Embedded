@@ -1,18 +1,10 @@
-21:20:25 **** Build of configuration Debug for project 06_MCU_Interrupt_NVIC ****
+22:38:09 **** Build of configuration Debug for project 06_MCU_Interrupt_NVIC ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/tutorial_interrupt_nvic.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial_interrupt_nvic.d" -MT"Src/tutorial_interrupt_nvic.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/tutorial_interrupt_nvic.o"
-arm-none-eabi-gcc -o "06_MCU_Interrupt_NVIC.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\06_MCU_Interrupt_NVIC\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="06_MCU_Interrupt_NVIC.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 06_MCU_Interrupt_NVIC.elf
- 
 arm-none-eabi-size   06_MCU_Interrupt_NVIC.elf 
-arm-none-eabi-objdump -h -S  06_MCU_Interrupt_NVIC.elf  > "06_MCU_Interrupt_NVIC.list"
    text	   data	    bss	    dec	    hex	filename
    5148	    124	   1908	   7180	   1c0c	06_MCU_Interrupt_NVIC.elf
 Finished building: default.size.stdout
  
-Finished building: 06_MCU_Interrupt_NVIC.list
- 
 
-21:20:26 Build Finished. 0 errors, 0 warnings. (took 975ms)
+22:38:09 Build Finished. 0 errors, 0 warnings. (took 374ms)
 

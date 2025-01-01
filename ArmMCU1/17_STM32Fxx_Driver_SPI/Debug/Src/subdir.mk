@@ -5,19 +5,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/006_spi_cmd_handling.c \
+../Src/005_spi_txonly_arduino.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c \
 ../Src/tutorial_spi_driver.c 
 
 OBJS += \
-./Src/006_spi_cmd_handling.o \
+./Src/005_spi_txonly_arduino.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o \
 ./Src/tutorial_spi_driver.o 
 
 C_DEPS += \
-./Src/006_spi_cmd_handling.d \
+./Src/005_spi_txonly_arduino.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d \
 ./Src/tutorial_spi_driver.d 
@@ -30,7 +30,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/006_spi_cmd_handling.cyclo ./Src/006_spi_cmd_handling.d ./Src/006_spi_cmd_handling.o ./Src/006_spi_cmd_handling.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/tutorial_spi_driver.cyclo ./Src/tutorial_spi_driver.d ./Src/tutorial_spi_driver.o ./Src/tutorial_spi_driver.su
+	-$(RM) ./Src/005_spi_txonly_arduino.cyclo ./Src/005_spi_txonly_arduino.d ./Src/005_spi_txonly_arduino.o ./Src/005_spi_txonly_arduino.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/tutorial_spi_driver.cyclo ./Src/tutorial_spi_driver.d ./Src/tutorial_spi_driver.o ./Src/tutorial_spi_driver.su
 
 .PHONY: clean-Src
 

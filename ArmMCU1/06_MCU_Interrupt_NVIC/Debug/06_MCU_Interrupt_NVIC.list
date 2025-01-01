@@ -150,7 +150,7 @@ int main(void)
  8000290:	b580      	push	{r7, lr}
  8000292:	b082      	sub	sp, #8
  8000294:	af00      	add	r7, sp, #0
-	button_init();   //hàm cấu hình chân ngắt GPIOA
+	button_init();   //hàm cấu hình chân của GPIOA và sử dụng interrupt trên chân đó
  8000296:	f000 f839 	bl	800030c <button_init>
 
 	while(1)

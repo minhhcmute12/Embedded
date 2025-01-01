@@ -42,7 +42,7 @@
 #define TIME_FORMAT_12HRS_PM	1
 #define TIME_FORMAT_24HRS		2
 
-/* DS1307 ADDRESS */
+/* DS1307 I2C ADDRESS */
 #define DS1307_I2C_ADDRESS	0x68	//1101000(b)=68(hex)
 
 /* DAY(Thứ) INFORMATION(03h regoster) */

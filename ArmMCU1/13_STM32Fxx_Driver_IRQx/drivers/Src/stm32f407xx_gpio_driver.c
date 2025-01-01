@@ -151,6 +151,22 @@ void GPIO_Init(GPIOx_Handle_t *pGPIOHandle)
 		uint8_t portcode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);		//xác định mã nhị phân xxxx để xác định GPIO port sử dụng
 		SYSCFG_PCLK_EN();													//Kích hoạt xung clock để cấu hình
 		SYSCFG->EXTICR[temp1] = portcode << (temp2 * 4);					//Cấu hình thanh ghi SYSCFG_EXTICR_temp1
+		
+		/* Kiến thức: Phân biệt [SYSCFG->EXTICR[3] = 0x2<< (1* 4);] Và [SYSCFG->EXTICR[3]  |= 0x2<< (1* 4);]
+		+Đoạn code 1: SYSCFG->EXTICR[3] = 0x2 << (1* 4);
+		->Ý nghĩa: Đoạn code này gán giá trị 0x2 << (1* 4) (tức là 0010) trực tiếp vào thanh ghi SYSCFG->EXTICR[3] 
+		bắt đầu từ vị trí bit4 và kéo dài 4 bit. Điều này có nghĩa là tất cả các bit trong thanh ghi này sẽ được thay thế 
+		và chỉ có 4 bit từ bit4->7 sẽ bằng giá trị 0x2(0010).
+		->Tác dụng: Đoạn code này sẽ ghi đè cấu hình hiện tại của ngắt bên ngoài liên quan đến thanh ghi EXTICR[3] bằng 
+		cấu hình mới. Các bit khác trong thanh ghi này sẽ bị mất đi.
+		
+		+Đoạn code 2: SYSCFG->EXTICR[3] |= 0x2 << (1* 4);
+		->Ý nghĩa: Đoạn code này thực hiện phép OR bit-by-bit giữa giá trị hiện tại của thanh ghi SYSCFG->EXTICR[3] và 
+		giá trị 0x2 << (1* 4). Kết quả của phép OR sẽ được gán lại cho chính thanh ghi này.
+		->Tác dụng: Đoạn code này sẽ thiết lập các bit tương ứng của thanh ghi EXTICR[3] thành 1, trong khi giữ nguyên 
+		các bit còn lại. Điều này có nghĩa là chúng ta có thể thêm một cấu hình ngắt mới vào cấu hình hiện tại mà không 
+		làm mất đi các cấu hình khác.
+		*/
 
 		//3. Eanble the exti interrupt delivery(chuyển, sử dụng) by using IMR(Interrupt Masking Register)
 		EXTI->IMR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);

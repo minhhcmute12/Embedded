@@ -9,6 +9,7 @@
 #define LCD_H_
 
 #include "stm32f407xx.h"
+#include "stm32f407xx_gpio_driver.h"
 
 /* bsp exposed apis */
 void lcd_init(void);

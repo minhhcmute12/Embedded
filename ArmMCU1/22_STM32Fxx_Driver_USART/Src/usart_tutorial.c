@@ -9,9 +9,15 @@
 *==Intro UART vs USART(V238)
 + UART: là viết tắt của Universal(Phổ quát) Asynchronous(không đồng bộ) Receive Tranmitter
   Nghĩa là UART peripheral chỉ hỗ trợ Asynchronous Mode
+  Là giao thức truyền thông không đồng bộ, nghĩa là không có một tín hiệu đồng hồ chung để đồng bộ hóa dữ liệu. 
+  Dữ liệu được truyền theo từng byte, mỗi byte bao gồm một bit bắt đầu, các bit dữ liệu, một hoặc nhiều bit chẵn lẻ 
+  và một bit kết thúc.
 
-  USART: là viết tắt của Universal Synchronous(đồng bộ) Asynchronous Receive Tranmitter
++ USART: là viết tắt của Universal Synchronous(đồng bộ) Asynchronous Receive Tranmitter
   Nghĩa là USART peripheral hỗ trợ cả Asynchronous Mode và Synchronous Mode
+   Là một phiên bản mở rộng của UART, hỗ trợ cả truyền thông đồng bộ và không đồng bộ. Trong chế độ đồng bộ, 
+   USART sử dụng một tín hiệu đồng hồ để đồng bộ hóa dữ liệu, cho phép truyền dữ liệu với tốc độ cao hơn và độ chính 
+   xác cao hơn.
 
   ->USART là chuẩn truyền thông nâng cấp so với UART do có hỗ trợ truyền/nhận đồng bộ
 
@@ -42,7 +48,7 @@ bit start/stop
  ^RTS và CTS là 2 chân đc yêu cầu khi bạn sử dụng chức năng "Hardware flow control- điều khiển luồng phần cứng"
  ^CTS(Clear to Send), là một "active low pin - hành động khi chân ở mức low", khi sử dụng "Hardware flow control",
  việc truyền dữ liệu trên TX line sẽ chỉ xảy ra nếu chân CTS đc kéo xuống mức Low(kéo xuống GND), nếu ko việc
- truyền data sẽ đc giữ kéo dài cho đến khi chân này đc kéo xuống mức thấp.
+ truyền data sẽ đc giữ kéo dài ở mức cao cho đến khi chân này đc kéo xuống mức thấp.
  ^RTS(Request to Send), là một "active low pin", Mô-đun UART sử dụng dòng này để yêu cầu dữ liệu từ thiết bị kết
  nối khác rằng nó cần data
 
@@ -53,17 +59,35 @@ bit start/stop
 
 *==UART Frame format(V240)
 + Có 2 kiểu Frame thường dùng trong UART là
- ^Frame 1: Start bit|Bit0|Bit1|Bit2|Bit3|Bit4|Bit5|Bit6|Bit7|Bit8|Stop bit|Next start bit(nếu có)|Next Data Frame(nếu có)
- Ở định dạng Frame1 thì Data Frame có độ dài là 9bit(bit0(LSB)->bit8(MSB)), với bit 8 là Optional Parity Bit
+ ^Frame 1: Start bit|Bit0|Bit1|Bit2|Bit3|Bit4|Bit5|Bit6|Bit7|Parity|Stop bit|Next start bit(nếu có)|Next Data Frame(nếu có)
+ Ở định dạng Frame1 thì Data Frame có độ dài là 9bit(bit0(LSB)->Parity(MSB)), với sử dụng Parity Bit
+ 
+ ^Frame 1.1: Start bit|Bit0|Bit1|Bit2|Bit3|Bit4|Bit5|Bit6|Bit7|Stop bit|Next start bit(nếu có)|Next Data Frame(nếu có)
+ Ở định dạng Frame1.1 thì Data Frame có độ dài là 8bit(bit0(LSB)->bit8(MSB)), với không sử dụng Parity Bit
 
- ^Frame 2: Start bit|Bit0|Bit1|Bit2|Bit3|Bit4|Bit5|Bit6|Bit7|Stop bit|Next start bit(nếu có)|Next Data Frame(nếu có)
- Ở định dạng Frame1 thì Data Frame có độ dài là 8bit(bit0(LSB)->bit7(MSB)), với bit 7 là Optional Parity Bit
+ ^Frame 2: Start bit|Bit0|Bit1|Bit2|Bit3|Bit4|Bit5|Bit6|Parity|Stop bit|Next start bit(nếu có)|Next Data Frame(nếu có)
+ Ở định dạng Frame2 thì Data Frame có độ dài là 8bit(bit0(LSB)->Parity(MSB)), với sử dụng Parity Bit
 
  ^Các Start bit luôn ở mức low và Stop bit luôn ở mức high
- ^Khi bạn muốn sử dụng bao nhiêu bit(Data bit:5bit,6bit,7bit,8bit,9bit) thì bạn sẽ tiến hành cấu hình các UART Periperal
- Register
- ^Optional Parity Bit: bạn sẽ chọn 2 cấu hình là bit chẵn(0) hay lẻ(1)
+ Nghĩa là mỗi byte dữ liệu được bắt đầu bằng một bit có mức thấp (0) và kết thúc bằng một hoặc nhiều bit có mức cao (1) 
+ ^Khi bạn muốn sử dụng bao nhiêu bit(Data Frame bit:5bit,6bit,7bit,8bit,9bit) thì bạn sẽ tiến hành cấu hình các UART Periperal Register 
  ^Stop bit có thể là 1 Stop Bit, 1.5 Stop Bit, 2 Stop Bit
+ 
+ ^Optional Parity Bit: bạn sẽ chọn 2 cấu hình là bit chẵn(0) hay lẻ(1) - được sử dụng để kiểm tra lỗi
+ Nếu xảy ra lỗi trong quá trình truyền, bit chẵn lẻ sẽ không khớp với số lượng bit 1 trong phần dữ liệu, giúp thiết bị nhận 
+ phát hiện ra lỗi.
+ Parity chẵn: Tổng số bit 1 trong khung dữ liệu (bao gồm cả parity bit) phải là số chẵn
+ Parity lẻ: Tổng số bit 1 trong khung dữ liệu phải là số lẻ. 
+ Ví dụ minh họa: Giả sử chúng ta có một khung dữ liệu 8 bit với giá trị thập phân là 75 (binary: 01001011).
+	-Không sử dụng parity bit: Khung dữ liệu sẽ là: 01001011.
+	-Sử dụng parity chẵn:
+	Đếm số bit 1 trong dữ liệu: 4 bit.
+	Để tổng số bit 1 là số chẵn, parity bit sẽ là 0.
+	Khung dữ liệu hoàn chỉnh: 010010110.
+	-Sử dụng parity lẻ:
+	Đếm số bit 1 trong dữ liệu: 4 bit.
+	Để tổng số bit 1 là số lẻ, parity bit sẽ là 1.
+	Khung dữ liệu hoàn chỉnh: 010010111.
 
 *==Baud Rate(V241)
 + Tốc độ truyền(Baud rate) là tốc độ truyền dữ liệu qua đường nối tiếp. Nó thường được biểu thị bằng đơn
@@ -257,7 +281,7 @@ và cấu trúc xử lý USART trong tệp tiêu đề USART
 *==USART driver APIs Prototypes(V249)
 *==Configuaration option and USART register(V250)
 + Datasheet_stm32f407x: Dm00031020 -> 30.3.4 Fractional baud rate generation
- Công thức tính baud rate
+ Công thức tính baud rater
 
 *==Configuaration option and USART register(V250)
 *==USART Driver API: USART Init(V251)
@@ -278,7 +302,7 @@ và cấu trúc xử lý USART trong tệp tiêu đề USART
  +Nếu giá trị Slampled Value là 000 hoặc 111 thì Receiver sẽ tương ứng nhận đc là 0 và 1 (NE status = 0)
  +Nếu giá trị Slampled Value 001,010,011,100,101,110 thì có nhiếu tác động vào data gây lỗi nhiễu (NE status = 1 ở USART_SR_NF)
 
-+ Noise Erro -> Khi phát hiện thấy nhiễu trong frame:
++ Noise Error -> Khi phát hiện thấy nhiễu trong frame:
  ^Bit cờ NF được thiết lập bằng phần cứng khi phát hiện nhiễu trên frame nhận được
  ^Dữ liệu không hợp lệ được chuyển từ thanh ghi Shift sang thanh ghi USART_DR
  ^Ứng dụng có thể xem xét hoặc loại bỏ frame dựa trên logic ứng dụng
@@ -346,8 +370,8 @@ message (on Arduino serial monitor) sent from the ST board.
 												   GND ---> GND
  ^CP2102 USB to UART convertor: đc gọi là thiết bị chuyển đổi
 
-*===USART interrupt(S74)
-*==USART interrupt discussion(V260)
+*===USART Interrupt(S74)
+*==USART Interrupt discussion(V260)
 + Trong USART communication thì các sự kiện sau đây có thể làm Interrupt của Processor
 Interrupt Events									Event flag				Enable control bit
 Transmit Data Register Empty							TXE						TXEIE
@@ -373,6 +397,29 @@ Write a program for stm32 board which transmits different messages to the Arduin
 For every messages STM32 board sends, arduino code will change the case of alphabets (lower case to upper case
 and vice versa) and sends messages back to the stm32 board.
 The stm32 board should capture the reply from the arduino board and display using semi hosting
-
 */
+/* IDLE line detected là gì?
++ Trong giao tiếp UART, IDLE line được hiểu là trạng thái khi đường truyền không có tín hiệu, tức là đường truyền đang 
+ở mức logic 1 (high) trong một khoảng thời gian nhất định. Khi vi điều khiển STM32F4 phát hiện được trạng thái IDLE 
+này kéo dài đủ lâu, flag IDLE line detected trong thanh ghi USART_SR sẽ được set lên.
 
++ Vai trò của IDLE line detected
+ ^Phát hiện điều kiện không hoạt động: Giúp vi điều khiển biết được khi nào đường truyền không có dữ liệu, từ đó có 
+ thể thực hiện các hành động cần thiết như chuyển sang chế độ tiết kiệm năng lượng hoặc thực hiện các thao tác khác.
+ ^Đồng bộ hóa lại: Trong một số trường hợp, IDLE line có thể được sử dụng để đồng bộ hóa lại quá trình truyền nhận 
+ dữ liệu.
+ ^Xác định bắt đầu của một frame: Khi nhận được IDLE line sau một khoảng thời gian không có dữ liệu, vi điều khiển 
+ có thể xác định được bắt đầu của một frame dữ liệu mới.
+
++ Cơ chế hoạt động
+ ^Ngưỡng thời gian: Vi điều khiển STM32F4 có một bộ đếm thời gian nội bộ để đo độ dài của IDLE line. Khi thời gian 
+ này vượt quá một ngưỡng nhất định (được cấu hình bằng thanh ghi USART_CR1), flag IDLE line detected sẽ được set.
+ ^Thanh ghi USART_SR: Thanh ghi này chứa các flag trạng thái của giao tiếp UART, trong đó có flag IDLE line detected.
+ Khi flag này được set, vi điều khiển có thể đọc giá trị của thanh ghi này để biết được trạng thái của đường truyền.
+
++ Ứng dụng
+ ^Phát hiện lỗi: Nếu IDLE line xuất hiện giữa một frame dữ liệu, điều đó có thể báo hiệu một lỗi truyền.
+ ^Quản lý năng lượng: Khi không có dữ liệu truyền nhận, vi điều khiển có thể chuyển sang chế độ ngủ để tiết kiệm 
+ năng lượng.
+ ^Đồng bộ hóa: Trong một số giao thức truyền thông, IDLE line được sử dụng để đồng bộ hóa giữa các thiết bị.
+*/

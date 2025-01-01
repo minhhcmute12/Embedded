@@ -313,7 +313,6 @@ void Slave_GPIO_InterruptPinInit(void)
  800036a:	2101      	movs	r1, #1
  800036c:	2017      	movs	r0, #23
  800036e:	f000 fbab 	bl	8000ac8 <GPIO_IRQInterruptConfig>
-
 }
  8000372:	bf00      	nop
  8000374:	3710      	adds	r7, #16

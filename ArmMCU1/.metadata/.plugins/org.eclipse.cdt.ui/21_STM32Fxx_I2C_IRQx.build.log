@@ -1,17 +1,27 @@
-13:24:27 **** Incremental Build of configuration Debug for project 21_STM32Fxx_I2C_IRQx ****
+22:38:29 **** Incremental Build of configuration Debug for project 21_STM32Fxx_I2C_IRQx ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/11_i2c_slave_tx_testing.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/11_i2c_slave_tx_testing.d" -MT"Src/11_i2c_slave_tx_testing.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/11_i2c_slave_tx_testing.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_gpio_driver.d" -MT"drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_gpio_driver.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_i2c_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_i2c_driver.d" -MT"drivers/Src/stm32f407xx_i2c_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_i2c_driver.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f407xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_spi_driver.d" -MT"drivers/Src/stm32f407xx_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_spi_driver.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/10_i2c_master_rx_testingIT.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/10_i2c_master_rx_testingIT.d" -MT"Src/10_i2c_master_rx_testingIT.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/10_i2c_master_rx_testingIT.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/21_STM32Fxx_I2C_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/10_i2c_master_rx_testingIT.c: In function 'main':
+../Src/10_i2c_master_rx_testingIT.c:134:17: warning: unused variable 'len' [-Wunused-variable]
+  134 |         uint8_t len;                                                                    //biến chứa giá tr�? len từ Slave->Master
+      |                 ^~~
 arm-none-eabi-gcc -o "21_STM32Fxx_I2C_IRQx.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\21_STM32Fxx_I2C_IRQx\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="21_STM32Fxx_I2C_IRQx.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: 21_STM32Fxx_I2C_IRQx.elf
  
 arm-none-eabi-size   21_STM32Fxx_I2C_IRQx.elf 
 arm-none-eabi-objdump -h -S  21_STM32Fxx_I2C_IRQx.elf  > "21_STM32Fxx_I2C_IRQx.list"
    text	   data	    bss	    dec	    hex	filename
-   4608	     64	   1608	   6280	   1888	21_STM32Fxx_I2C_IRQx.elf
+   4752	     32	   1608	   6392	   18f8	21_STM32Fxx_I2C_IRQx.elf
 Finished building: default.size.stdout
  
 Finished building: 21_STM32Fxx_I2C_IRQx.list
  
 
-13:24:28 Build Finished. 0 errors, 0 warnings. (took 1s.193ms)
+22:38:30 Build Finished. 0 errors, 1 warnings. (took 1s.434ms)
 

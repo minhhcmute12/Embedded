@@ -287,7 +287,7 @@ typedef struct
 #define USART3_PCLK_EN() 		(RCC->APB1ENR |= (1 << 18))
 #define UART4_PCLK_EN() 		(RCC->APB1ENR |= (1 << 19))
 #define UART5_PCLK_EN() 		(RCC->APB1ENR |= (1 << 20))
-#define USART6_PCLK_EN() 		(RCC->APB1ENR |= (1 << 5))
+#define USART6_PCLK_EN() 		(RCC->APB2ENR |= (1 << 5))
 
 /**
  * 14_Clock Enable Macros for SYSCFG peripherals
@@ -342,9 +342,10 @@ typedef struct
 /**
  * 18_IRQ(Interrupt request) Number of SRTM32F407x MCU(V111)
  * Note: Update these macros with valid values according to your MCU
- * TODO: You may complete this list for other peripheral with NVIC register(Vector table)
+ * TODO: You may complete this list for other peripheral with NVIC register(R4007->12.2->Table61: Vector table)
+ * Position(vị trí)　là số cổng thuộc NVIC mà tại đó EXTIx kết nối với NVIC theo datasheet
  */
-#define IRQ_NO_EXTI0		6
+#define IRQ_NO_EXTI0		6			//EXTIx kết nối với NVIC tại Position 6 theo Table61
 #define IRQ_NO_EXTI1		7
 #define IRQ_NO_EXTI2		8
 #define IRQ_NO_EXTI3		9

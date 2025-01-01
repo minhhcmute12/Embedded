@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="SysTick"/>
+		<item key="selection" value="AHB1ENR"/>
 		<list key="findhistory">
+			<item value="AHB1ENR"/>
+			<item value="APB1RSTR"/>
 			<item value="SysTick"/>
 			<item value="RCC_GetPLLOutputClock"/>
 			<item value="I2C_PeripheralControl"/>

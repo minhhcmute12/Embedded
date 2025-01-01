@@ -1,7 +1,7 @@
 /**
 *===SPI Introduce and Bus Details - Giới thiệu về SPI và Bus(S31)
 *==Introduce to SPI Bus(V121)
-+ SPI là Serial Peripheral Interface(Giao diện ngoại vi nối tiếp)
++ SPI là Serial Peripheral Interface(Giao diện ngoại vi nối tiếp đồng bộ)
 + Là một giao thức đc sử dụng để kết nối giữa Master và Slaves trong hệ thống nhúng
 + Sơ đồ: Giả sử ta có một Master kết nối Slave
 								SPI Bus
@@ -13,8 +13,10 @@
  ^Khối Slave có thể là các cảm biến(Sensor), chip EEFROM, SD-card, DISPLAY, kết nối không dây(Bluetooth,Wifi),...
  ^Nếu ta muốn thiết bị chính Master giao tiếp với thiết bị phụ Slave thì nghĩa là Master đang muốn gửi mốt số tín
  hiệu đến slave hoặc là muốn lấy data từ Slave. SPI chính là một trong số giao thức kết nối đc sử dụng cho việc này
- ^Ngoài SPI ta cũng có một số giao thưc kết nối khác như Can, I2C, Ethernet, USB,RSS232, RS485
+ ^Ngoài SPI ta cũng có một số giao thức kết nối khác như Can, I2C, Ethernet, USB,RS232(UART), RS485(UART)
  ^Trong bo mạch sẽ có một số chân Pin và SPI Bus đc thiết kế cho giao tiếp chuẩn SPI
+ ^Ưu điểm của SPI: Tốc độ truyền dữ liệu cao , dễ dàng triển khai, ít chân kết nối và hỗ trợ nhiều thiết bị slave.
+ ^Nhược điểm của SPI: Không có cơ chế xác nhận dữ liệu nhận được và cần yêu cầu đồng bộ hóa xung clock giữa master và slave.
 
 + Tìm hiểu về pin của SPI Bus
  ^Bốn I/O pins đc dành riêng cho giao tiếp SPI với các thiết bị bên ngoài -> Khi dùng SPI cần sử dụng 4 pin
@@ -61,7 +63,7 @@ SPI 			synchronous			10					fPCLK/2				Sensor Data, Display, Leđ Flash
 				serial
 
  ^Qua bảng so sánh ta thấy thì khoảng cách truyển của SPI khá ngắn chỉ khoảng 10 feet(3 mét). và tốc độ truyền dữ
- liệu sẽ phụ thuộc vòa tốc độ truyền xung ngoại vi fPCLK/2 của SPI Bus
+ liệu sẽ phụ thuộc vào tốc độ truyền xung ngoại vi fPCLK/2 của SPI Bus
  ^Vd: Nếu thiết bị ngoại vi SPI của bộ vđk của bạn có xung nhip ngoại vi là 50MHz, thì tốc độ tối đa cho xung Clock
  của SPI là 25mbps
  => SPI hoạt động ở "khoảng cách ngắn" nhưng bạn có thể đạt đc "tốc độ truyền dữ liệu cao hơn, tốc độ cao hơn"
@@ -78,7 +80,7 @@ SPI 			synchronous			10					fPCLK/2				Sensor Data, Display, Leđ Flash
  với nhau thì sẽ ưu tiên sử dụng các chuẩn kêt nối khác như CAN,Ethernet,RS232,RS485 hơn là sử dụng SPI,I2C
 
 *==Importance of SPI Slave Select pin(V123)
-+ Trong chuẩn giao tiếp SPI, chân Slave Select (SS) được sử dụng để chọn một thiết bị Slave cụ thể bởi Master.
++ Trong chuẩn giao tiếp SPI, chân Slave Select(SS) được sử dụng để chọn một thiết bị Slave cụ thể bởi Master.
 Nếu Master kéo đường SS của một Slave nào đó xuống mức thấp(có thể là kéo về GND) thì việc giao tiếp sẽ xảy ra
 giữa Master và Slave đó.
 + Ở trạng thái idle(nhàn rỗi), không truyền tải, dòng slave select được giữ ở mức điện áp cao. Nhiều chân SS / CS
@@ -101,9 +103,9 @@ không được chọn để giao tiếp nữa và sẽ ngừng nhận hoặc g�
 + Trong một hệ thống nhúng, có thể có nhiều Slave được kết nối với một Master. Trong trường hợp này, chân Slave Select (SS)
 là cần thiết để chọn một Slave cụ thể để giao tiếp.
 
-*==SPI Minimum Bus Configuaration(V124)
+*==SPI Minimum Bus Configuaration - Mô hình SPI rút gọn(V124)
 + SPI Bus cho phép giao tiếp giữa một Master device(Thiết bị chính) và một hoặc nhiều Slave device(thiết bị phụ).
-+ Trong một số ứng dụng, SPI Bus chỉ bao gồm 2 dây, một dây là Clock Signal và một dây truyền dữ liệu đồn bộ.
++ Trong một số ứng dụng, SPI Bus chỉ bao gồm 2 dây, một dây là Clock Signal và một dây truyền dữ liệu đồng bộ.
 Các tín hiệu khác có thể đc thêm vào tùy thuộc vào việc trao đổi dữ liệu giữa SPI node và quản lý tín hiệu Slave Selcect.
 
 + Giả sử ta có một Master kết nối Slave. Slave luôn chỉ nhận dữ liệu và ko gửi dữ liệu cho Master
@@ -128,7 +130,7 @@ Các tín hiệu khác có thể đc thêm vào tùy thuộc vào việc trao đ
   MISO: B0(LSB) -nối-> (MSB)A7
 
  ^Mục tiêu là gửi dữ liệu đang lưu trong thanh ghi của Master tới thanh ghi của Slave và ngược lại
- ^Hoạt động: Data lưu trong các thanh ghi sẽ thay đổi theo chu kỳ CLock
+ ^Hoạt động: Data lưu trong các thanh ghi sẽ thay đổi theo chu kỳ Clock
   ~Ở chu kỳ xung CLK đầu tiên, A0(LSB) sẽ truyền qua MOSI và chiếm vị trí B7, đồng thời B0 sẽ bị đẩy khỏi thanh ghi
   và truyền tới thanh ghi của Master ở vị trí trước A7
   Thanh ghi bên Slave lúc này:  (MSB)A0B7B6B5B4B3B2B1(LSB)
@@ -138,11 +140,30 @@ Các tín hiệu khác có thể đc thêm vào tùy thuộc vào việc trao đ
   Thanh ghi bên Slave cuối cùng:  (MSB)A7A6A5A4A3A2A1A0(LSB)
   Thanh ghi bên Master cuối cùng: (MSB)B7B6B5B4B3B2B1B0(LSB)
   ->Cần 8 chu kỳ xung CLK cho việc truyền data này
-  Lưu ý;  khi kết nối MISO đc thiết lập thì chắc chắn bạn sẽ nhận đc data từ Slave -> Master
+  Lưu ý:  khi kết nối MISO đc thiết lập thì chắc chắn bạn sẽ nhận đc data từ Slave -> Master
 */
 
 /**
 *===SPI Bus configuration and functional block diagram(S32)
+*==Khái niệm: Phân biệt Half-duple và Full-duplex
+ ^Half-duplex (Bán song công)
+ Định nghĩa: Trong chế độ half-duplex, dữ liệu có thể được truyền theo cả hai hướng nhưng không đồng thời. 
+ Nghĩa là, một thiết bị chỉ có thể gửi hoặc nhận dữ liệu tại một thời điểm nhất định.
+ So sánh: Hãy hình dung một đường hầm một làn xe: Xe chỉ có thể đi một chiều tại một thời điểm. Khi một chiếc 
+ xe đi qua, chiếc xe khác phải đợi.
+ Ví dụ:
+ Bộ đàm: Khi một người nói, người kia phải đợi cho đến khi người đầu tiên ngừng nói mới có thể nói.
+ Đường truyền Ethernet sử dụng chế độ half-duplex: Dữ liệu chỉ có thể truyền theo một hướng tại một thời điểm 
+ trên cùng một cặp dây.
+
+ ^Full-duplex (Song công toàn phần)
+ Định nghĩa: Trong chế độ full-duplex, dữ liệu có thể được truyền theo cả hai hướng đồng thời. Nghĩa là, một thiết 
+ bị có thể gửi và nhận dữ liệu cùng một lúc.
+ So sánh: Hãy hình dung một đường hầm hai làn xe: Xe có thể đi cả hai chiều cùng một lúc mà không gây cản trở cho nhau.
+ Ví dụ:
+ Cuộc gọi điện thoại thông thường: Bạn có thể nói và nghe đồng thời.
+ Mạng Ethernet sử dụng chế độ full-duplex: Dữ liệu có thể truyền theo cả hai hướng trên các cặp dây khác nhau. 
+
 *==SPI Bus configuration discussion(thảo luận): full-duplex, half-duplex, simplex(V126)
 + SPI cho phép bộ vdk giao tiếp bằng các cấu hình khác nhau, tùy thuộc vào thiết bị, mục tiêu và yêu cầu ứng dụng.
 + Full-duplex communication(giao tiếp song công hoàn toàn):
@@ -180,7 +201,7 @@ Các tín hiệu khác có thể đc thêm vào tùy thuộc vào việc trao đ
 
 *==SPI function Block Diagram explanation(V127)
 + Tìm hiểu về sơ đồ khối SPI
-+ Tài liệu Datasheet: RM407 -> 28. Serial peripheral interface (SPI) -> Figure 246. SPI block diagram
++ Tài liệu Datasheet: RM407 -> 28. Serial peripheral interface (SPI) -> 28.3.1 -> Figure 246. SPI block diagram
 + Thanh ghi "Shift Register" của stm32f407x hỗ trợ lến đến 16bit
 + SPI Bus sẽ đc kết nối với Processor thông qua APBx Bus
   Ta có data line nhận : MISO -> Shift Register -> Rx Buffer -> APBx Bus -> Processor
@@ -195,7 +216,7 @@ Control"
 *==NSS settings in STM32 Master and Slave Modes(V128)
 + Slave Device: Khi thiết bị ở chế độ Slave Mode, NSS hoạt động như là một "standard chip select input - chân đầu vào chọn
 chip tiêu chuẩn" và cho phép Slave Device đó giao tiếp với Master.
-+ Master Device: NSS pin có thể đc sử dụng làm Output  hoặc Input.
++ Master Device: NSS pin có thể đc sử dụng làm Output hoặc Input.
  ~Với vai trò Input thì nó có thể ngăn chặn xung đột giữa các "Multi-Master" Bus, nghĩa là có thể thiết lập một chế độc
  điều khiển Đa Master khi sử dụng chuẩn giao tiếp SPI.
  ~Với vai trò Output thì có thể điều khiển tín hiệu "Slave Select" của một Slave đc chọn.
@@ -222,7 +243,7 @@ chip tiêu chuẩn" và cho phép Slave Device đó giao tiếp với Master.
  ^Như đã biết trong trường hợp một Master một Slave thì ko cần nối hai chân NSS, và nếu muốn kết nối Master với Slave thì
  ta sẽ nối chân NSS của Slave xuống GND.
 
- Software: cần cấu hình chân NSS của Slave mà ko cần cấu hình chân NSS của Master
+ Software: chỉ cần cấu hình chân NSS của Slave mà ko cần cấu hình chân NSS của Master
  ^Trường hợp kết nối hai chân và quản lý chân NSS bằng phần mềm thì Thanh ghi cấu hình cho NSS pin là SPIx_CR1 Register
  ^Vị trí bit cần cấu hình trong thanh ghi là SSM bit viết tắt của "Software NSS Management(SSM=1)"
   ~Với SSM=1 thì cho phép quản lý cấu hình Slave là Input bằng phần mềm
@@ -235,7 +256,8 @@ chip tiêu chuẩn" và cho phép Slave Device đó giao tiếp với Master.
  ^Trường hợp kết nối hai chân và quản lý chân NSS bằng phần cứng thì Thanh ghi cấu hình cho NSS pin là SPIx_CR1 Register
  ^Vị trí bit cần cấu hình trong thanh ghi là SSM bit viết tắt của "Software NSS Management(SSM=0)"
   ~Với SSM=0(cả hai bên Master và Slave) thì đang cấu hình đường kết nối bằng phần cứng
- ^Sau đó cần set NSS của Master là Output. Và cấu hình chân NSS của Slave ở mức thấp.
+ ^Sau đó cần set NSS của Master là Output (cấu hình bit SSOE[2]=1 của SPIx_CR2 Register) 
+ Và cấu hình chân NSS của Slave ở mức thấp(nối GND).
 
  ^Điểm khác nhau giữa 2 kiểu kết nối Software và Hardware là khi nối kiểu Software thì chỉ cần cấu hình một chân NSS của
  bên Slave, còn khi kết nối kiểu Hardware thì cần cấu hình chân NSS của cả Master và Slave.
@@ -255,10 +277,10 @@ Vd: bạn có chân IO1 kết nối với NSS của Slave1, chân IO2 kết nố
 /**
 *===SPI Comunication format - Định dạng truyền thông SPI(S34)
 *==SPI CPOL và CPHA discussion(Thảo luận)(V130)
-+ SPI Comunication format gồm 3 loại: 	SCLK PHASE(CPHA), SCLK POLARITY(CPOL), Data frame format(DFF)
++ SPI Comunication format gồm 3 loại: SCLK PHASE(CPHA), SCLK POLARITY(CPOL), Data frame format(DFF)
 + Trong giao tiếp SPI. việc hoạt động nhận(receive) và truyền(transmit) data đc thực hiện đồng thời
 + The Serial Clock - Đồng hồ nối tiếp(SCK) đồng bộ hóa việc dịch chuyển và lấy mẫu thông tin trên dòng dữ liệu
-+  Comunication format phụ thuộc vào "Clock Phase","Clock Polarity","Data frame format". Để có thể giao tiếp
++ Comunication format phụ thuộc vào "Clock Phase","Clock Polarity","Data frame format". Để có thể giao tiếp
 với nhau thì Master và Slave phải tuân theo cùng một định dạng giao tiếp "Comunication format". Nếu không việc
 truyền dữ liệu từ Master sẽ ko thành công, và Slave ko đọc đc dữ liệu hợp lệ và ngược lại.
 + Data format có thể là định dạng dữ liệu 16bit hoặc 8bit(Mặc định ban đầu là 8bit)
@@ -268,8 +290,8 @@ truyền dữ liệu từ Master sẽ ko thành công, và Slave ko đọc đc d
  ^Nếu CPOL đc reset, the SCLK pin sẽ ở trạng thái "low-level idle state"
   Nếu CPOL đc set, the SCLK pin sẽ ở trạng thái "high-level idle state"
  ^Trong thanh ghi điều khiển SPI sẽ có một bit gọi là CPOL bit và bạn có thể đặt bit đó lên HIGH (1) hoặc LOW(0)
-  ~Trạng thái xung Clock CPOL = 0: 				__|--|__|--|__|--|__|--|__
-  ~Trạng thái xung Clock CPOL = 1(idle state):  __    __    __    __    __
+  ~Trạng thái xung Clock CPOL = 0: 				__|--|__|--|__|--|__|--|__ 	(Xung 1)
+  ~Trạng thái xung Clock CPOL = 1(idle state):  __    __    __    __    __	(Xung 2)
 												  |__|  |__|  |__|  |__|
 
 + CPHA(Clock Phase - Pha đồng hồ)
@@ -287,12 +309,12 @@ truyền dữ liệu từ Master sẽ ko thành công, và Slave ko đọc đc d
 
 + Diferent SPI Mode: có 4 chế độ SPI
 	Mode	CPOL	CPHA
-	0		0		0
-	1		0		1
-	2		1		0
-	3		1		1
- ^Nếu CPHA=1 thì thì việc lấy mẫu sẽ đc thực hiện ở nửa sau chu kỳ xung CLK
+	0		0		0			-> Sử dụng xung 1
+	1		0		1			-> Sử dụng xung 1
+	2		1		0			-> Sử dụng xung 2
+	3		1		1			-> Sử dụng xung 2
  ^Nếu CPHA=0 thì thì việc lấy mẫu sẽ đc thực hiện ở nửa đầu chu kỳ xung CLK
+ ^Nếu CPHA=1 thì thì việc lấy mẫu sẽ đc thực hiện ở nửa sau chu kỳ xung CLK
  ^Việc lấy mẫu là việc thực hiện MOSI và MISO giữa Master và Slave
 
 *==SPI CPOL and CPHA Waveform example(V131)
@@ -305,13 +327,55 @@ truyền dữ liệu từ Master sẽ ko thành công, và Slave ko đọc đc d
  việc chu kỳ xung ngắn có thể làm mất mát dữ liệu hoặc đọc sai data khi Slave chưa lấy mẫu xong. Tuy nhiên việc tăng tần số đồng
  nghĩa với việc cần tăng năng lượng sử dụng cho việc truyền-nhận nên việc sử dụng dây dẫn dài và nhiều môi trường sẽ làm cho việc
  hao hụt đường dây xảy ra từ đó việc truyền data cũng sẽ ko chính xác.
+
++ Một số ví dụ về việc lựa chọn xung SCL trong giao tiếp SPI
+ 1. Truyền dữ liệu tốc độ cao:
+ Ví dụ: Truyền dữ liệu từ một cảm biến tốc độ cao về vi điều khiển.
+ Lựa chọn: Chọn tần số SCL cao nhất mà cả thiết bị master và slave đều hỗ trợ. Điều này giúp tăng tốc độ truyền dữ liệu và giảm 
+ thiểu thời gian phản hồi. Tuy nhiên, cần lưu ý đến giới hạn về tốc độ của các thành phần khác trong hệ thống (ví dụ: tốc độ của 
+ vi điều khiển, độ dài đường truyền).
+
+ 2. Truyền dữ liệu khoảng cách xa:
+ Ví dụ: Truyền dữ liệu giữa hai module cách xa nhau trên một bo mạch.
+ Lựa chọn: Chọn tần số SCL thấp hơn để giảm thiểu nhiễu và đảm bảo độ ổn định của tín hiệu trên đường truyền dài. Tần số quá cao 
+ có thể gây ra hiện tượng nhiễu, méo tín hiệu và dẫn đến lỗi truyền dữ liệu.
+ 
+ 3. Truyền dữ liệu với các thiết bị chậm:
+ Ví dụ: Truyền dữ liệu đến một màn hình LCD đơn sắc.
+ Lựa chọn: Chọn tần số SCL thấp để phù hợp với tốc độ phản hồi của thiết bị slave. Việc sử dụng tần số SCL quá cao có thể làm cho 
+ thiết bị slave không kịp xử lý dữ liệu.
+ 
+ 4. Truyền dữ liệu với nhiều thiết bị slave:
+ Ví dụ: Kết nối nhiều cảm biến khác nhau với một vi điều khiển.
+ Lựa chọn: Chọn tần số SCL phù hợp với thiết bị slave có tốc độ chậm nhất trong hệ thống. Điều này đảm bảo rằng tất cả các thiết bị 
+ đều có thể hoạt động ổn định.
+ 
+ 5. Xét đến các yếu tố khác:
+ Độ ổn định của nguồn clock: Nguồn clock càng ổn định thì tín hiệu SCL càng chính xác, giúp tăng độ tin cậy của hệ thống.
+ Nhiễu điện từ: Tần số SCL cao có thể gây ra nhiễu điện từ, ảnh hưởng đến các mạch khác trong hệ thống. Nên bố trí các đường tín hiệu 
+ SPI một cách hợp lý và sử dụng các biện pháp chống nhiễu.
+ Tiêu thụ điện năng: Tần số SCL cao thường đi kèm với mức tiêu thụ điện năng lớn hơn. Nên cân nhắc giữa tốc độ và tiêu thụ điện năng 
+ khi lựa chọn tần số SCL.
+ 
+ ->Các yếu tố cần xem xét khi lựa chọn xung SCL:
+ Datasheet của thiết bị: Tham khảo datasheet của thiết bị master và slave để biết giới hạn về tần số SCL mà chúng hỗ trợ.
+ Độ dài đường truyền: Đường truyền càng dài, tần số SCL càng cần phải thấp để giảm thiểu nhiễu.
+ Môi trường hoạt động: Nhiệt độ, độ ẩm và các yếu tố môi trường khác có thể ảnh hưởng đến độ ổn định của tín hiệu SCL.
+ Yêu cầu về tốc độ và độ tin cậy của hệ thống: Tùy thuộc vào từng ứng dụng cụ thể mà có những yêu cầu khác nhau về tốc độ và độ tin cậy.
+ 
+ ->Ví dụ cụ thể: Giả sử bạn cần truyền dữ liệu từ một cảm biến nhiệt độ (tốc độ phản hồi chậm) và một cảm biến ánh sáng (tốc độ phản hồi 
+ nhanh) về một vi điều khiển. Trong trường hợp này, bạn có thể chọn tần số SCL trung bình để đáp ứng được cả hai cảm biến. Nếu chỉ 
+ cần truyền dữ liệu từ cảm biến nhiệt độ, bạn có thể chọn tần số SCL thấp hơn để tiết kiệm năng lượng.
+
+ ->Lưu ý: Việc lựa chọn tần số SCL là một quá trình thử nghiệm và điều chỉnh. Bạn có thể bắt đầu bằng cách chọn một tần số SCL nằm trong 
+ khoảng cho phép của các thiết bị và sau đó điều chỉnh cho phù hợp với yêu cầu của hệ thống.
 */
 
 /**
 *===SPI Serial Clock Discussion(S35)
 *==SPI Periperal of Your Microcontroller(V132)
 + Bạn cần mở Datasheet và Block Diagram để kiểm tra các SPI trong vđk
-+ Với STM32407_MCU thì có 3 peripheral SPI đc cài đặt: SPI1(APB2 Bus), SPI2,SPI3(APB1 Bus)
++ Với STM32407_MCU thì có 3 peripheral SPI đc cài đặt: SPI1,SPI4(APB2 Bus), SPI2,SPI3(APB1 Bus)
 
 *==SPI Serial Clock Frequency(V133)
 + Hỏi: Tốc độ xung nhịp tối đa của SPI Periperal có thể đặt đc trên một bộ vđk là bao nhiêu?
@@ -322,14 +386,29 @@ truyền dữ liệu từ Master sẽ ko thành công, và Slave ko đọc đc d
   -> f_PCLK(APB1 Bus) = 16MHz
 
   ~Tuy nhiên bên trong khối SPI2/SPI3 có bộ chia gọi là Min Prescalar = 2
-  Lưu ý: Min Prescalar = 2 là giá trị mặc định nhưng có thể thay đổi theo yêu cầu.
+  Lưu ý: Min Prescalar = 2(Baud rate) là giá trị mặc định nhưng có thể thay đổi theo yêu cầu.
   -> SCLK(SPI2/SPI3) = 16 / 2 = 8MHz
   => Tốc độ xung nhip nối tiếp đa mà thiết bị ngoại vi SPI có thể tạo ra là 8MHz ở APB1 Bus
-  Tốc độ này cũng là tốc đô cho SPI1 ở ABP2 Bus
+  Tốc độ này cũng là tốc độ cho SPI1 ở ABP2 Bus  
+  ->Kiểm tra datasheet của các Bus muốn sử dụng để biết được tần số có thể hoạt động
 
  ^Trong một số trường hợp f_PCLK(APB1 Bus) có thể lên đến 42MHz và f_PCLK(APB2 Bus) có thể lên đến 84MHz
  -> SCLK(SPI2/SPI3) có thể tối đa là 21MHz  và SCLK(SPI1) có thể tối đa 42MHz
+ 
+ ^Ví dụ thực tế: Giả sử bạn muốn kết nối một màn hình LCD với STM32F4 với chuẩn SPI chân SPI2. Màn hình LCD có tốc độ truyền dữ liệu 
+ tối đa là 5Mbps và thời gian thiết lập/giữ là 20ns. Vi điều khiển STM32F4 của bạn đang chạy ở tần số 16MHz(APB1 Bus).
+ Thời gian truyền một bit = 1 / 5Mbps = 200ns.
+ Thời gian xung clock = 20ns + 20ns + 200ns = 240ns.
+ Tần số xung clock tối đa = 1 / 240ns ≈ 4.17MHz.
+ Vì vậy, bạn có thể chọn tần số xung clock là 4MHz để đảm bảo hoạt động ổn định của màn hình LCD.
+ -> Min Prescalar = 4(16/4=4MHz) là lựa chọn hợp lý.
 
- ^Các thanh ghi cấu hình tốc độ Baud  chính là cấu hình Min Prescalar
+ ^Các thanh ghi cấu hình tốc độ Baud chính là cấu hình Min Prescalar
+ ->SPIx_CR1 Register với Bits 5:3 BR[2:0]
+
+*=Thêm: File stm32f407xx.h : sẽ định nghĩa các địa chỉ, các cấu trúc thanh ghi và tên cùng vị trí bit trong thanh ghi
+		File stm32f407xx_Xperipheral_driver.h : định nghĩa các lựa chọn cho vị trí bit thanh ghi và cấu trúc cấu hình
+		do người dùng thiết lập, các hàm xử lý bit
+		Chú ý: Cần định nghĩa cấu hình thanh ghi "SPI_RegDef_t" trước khi thực hiện định nghĩa cấu hình xung SPI
 */
 

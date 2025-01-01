@@ -1,10 +1,10 @@
-18:13:56 **** Incremental Build of configuration Debug for project 22_STM32Fxx_Driver_USART ****
+18:34:37 **** Incremental Build of configuration Debug for project 22_STM32Fxx_Driver_USART ****
 make -j8 all 
 arm-none-eabi-size   22_STM32Fxx_Driver_USART.elf 
    text	   data	    bss	    dec	    hex	filename
-   7332	    136	   2968	  10436	   28c4	22_STM32Fxx_Driver_USART.elf
+   3368	   1056	   1600	   6024	   1788	22_STM32Fxx_Driver_USART.elf
 Finished building: default.size.stdout
  
 
-18:13:57 Build Finished. 0 errors, 0 warnings. (took 371ms)
+18:34:38 Build Finished. 0 errors, 0 warnings. (took 431ms)
 

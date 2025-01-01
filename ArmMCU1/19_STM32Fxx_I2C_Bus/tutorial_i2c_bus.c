@@ -8,7 +8,7 @@
 /**
 *===I2C Introduction and Differentces with SPI(S48)
 *==I2C Introduction and Differentces with SPI(V172)
-+ I2C viết tắt của từ "Inter-Integrated Circuit"
++ I2C viết tắt của từ "Inter-Integrated Circuit" - Mạch tích hợp liên thông
 + I2C Protocol(Giao thức): Nó chỉ là một giao thức để đạt được giao tiếp dữ liệu nối tiếp giữa các mạch tích hợp (IC)
 rất gần nhau. (nhưng giao thức này nghiêm túc hơn SPI vì các công ty đã đưa ra thiết kế một thông số kỹ thuật(design
 a specification) cho việc giao tiếp sử dụng I2C)
@@ -190,7 +190,7 @@ Hight Speed Mode		Up to 3.4 Mbits/sec			Not Supported by F4x
  thiết bị Master mode và thiết bị Slave mode
 
 *==ACK và NACK(V177)
-+ I2C Protocol: Address Phase((8bit)
++ I2C Protocol: Address Phase(8bit)
  ^Vùng 7bit nằm phía sau bitS(START) đc gọi là Slave Address
  ^Vùng 1bit phía sau cùng đc gọi là R/W
 
@@ -222,7 +222,7 @@ SDA: S-A7-A6-A5-A4-A3-A2-A1-W-ACK1-D7-D6-D5-D4-D3-D2-D1-D0-D7-D6-D5-D4-D3-D2-D1-
  ^D7-D6-D5-D4-D3-D2-D1-D0-D7-D6-D5-D4-D3-D2-D1-D0: 2 byte dữ liệu mà Master sẽ gửi đến Slave
  ^A7-A6-A5-A4-A3-A2-A1: byte dữ liệu địa chỉ của slave
  ^ACK: byte phản hồi(slave->master)
- ^W: yêu cầu Writting
+ ^W: yêu cầu Writting (mức Low)
  ^P: điều kiện dừng truyền dữ liệu, do master tạo ra, nếu có n byte dữ liệu truyền đi thì khi truyền xong master sẽ tự
  động tạo điều kiện dừng này.
 
@@ -230,7 +230,7 @@ SDA: S-A7-A6-A5-A4-A3-A2-A1-W-ACK1-D7-D6-D5-D4-D3-D2-D1-D0-D7-D6-D5-D4-D3-D2-D1-
 SCL: Mỗi vị trí trên SDA tương ứng với 1 chu kỳ xung Clock
 SDA: S-A7-A6-A5-A4-A3-A2-A1-R-ACK1-D7-D6-D5-D4-D3-D2-D1-D0-ACK2(NACK)-P
  ^Slave sẽ gửi tổng cộng 3 byte dữ liệu gồm, byte đầu tiên(D7-D6-D5-D4-D3-D2-D1-D0) đc gửi đến master, một ACK2 đc gửi
- từ Master xác nhận việc read bắt đầu, tiếp theo Slave sẽ gửi byte(A7-A6-A5-A4-A3-A2-A1) để xác nhận địa chỉ cho
+ từ Master xác nhận việc read(mức High) bắt đầu, tiếp theo Slave sẽ gửi byte(A7-A6-A5-A4-A3-A2-A1) để xác nhận địa chỉ cho
  Master, cuối cùng sẽ gửi byte thứ 3(D7-D6-D5-D4-D3-D2-D1-D0) là data Msster muốn đọc.
  ^Trong trường hợp còn data muốn đọc thì tiếp tục sẽ có một ACK2 đc gửi từ Master, nếu hết thì Slave sẽ tạo ra một NACK
  gửi đến Master thông báo kết thúc gửi data cho Master đọc. Master sẽ tạo P để dừng việc đọc/truyền dữ liệu
@@ -257,7 +257,7 @@ Slave ko cần tạo ra điều kiện dừng sau mỗi lần giao tiếp Read h
 *==I2C functional block diagram(V181)
 + Tìm hiểu về sơ đồ khối I2C
 + Tài liệu Datasheet: RM407 -> 27. Inter-integrated circuit (I2C) interface -> Figure 239. I2C block diagram for STM32F40x/41x
-+ Noise filter: bộ lọc nhiễu tín hiệu, làm min tín hiệu trên SCL và SDA
++ Noise filter: bộ lọc nhiễu tín hiệu, làm mịn tín hiệu trên SCL và SDA
 + Thanh ghi "Shift Register" của stm32f407x hỗ trợ lến đến 16bit
 + Thanh ghi "Data Register": nơi lưu dữ liệu đã read hoặc write và giao tiếp với "Data Shift Register"
 + I2C Bus sẽ đc kết nối với Processor thông qua APB1 Bus(I2C1,I2C2,I2C3)

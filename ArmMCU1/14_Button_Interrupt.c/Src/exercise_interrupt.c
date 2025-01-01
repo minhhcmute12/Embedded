@@ -18,7 +18,7 @@ Interrupt should be triggered during falling edge of button press. Kết nối n
  ^Thực hiện hàm ngắt trên vị trí pin input thiết lập ngắt
 
 + Chạy lần 1: sẽ bị lỗi trong quá trình thiết lập thanh ghi(ko phải lỗi cấu trúc code) làm đèn ko sáng khi nhấn.
-Tiến hành debig và gỡ lỗi:
+Tiến hành debug và gỡ lỗi:
  ^Kiểm tra quá trình nhấn có thực hiện hàm ngắt hay ko
  ^Kiển tra cửa sổ I/O Register -> Kiểm tra các thanh ghi liên quan đến thiết lập led và button
 
@@ -62,4 +62,10 @@ Sau đó tiến hành chương trình debug -> vào showView -> I/O register(qua
 hoặc các cửa sổ khác mà bạn mong muốn kiểm tra
 
 + Sửa một số lỗi đến hàm GPIO_IRQPriorityConfig() => File driver chuẩn GPIO Interrupt
+
+*==Chú ý: Hàm GPIO_IRQHangling(uint8_t PinNumber){}
+Giải thích: Khi ngắt đc phát hiện thì bit tương ứng trong thanh ghi PR(Peding Register)thuộc EXTIx sẽ đc tự động set 1
+Xóa bit đang chờ ở thanh ghi PR(Pending Register) của NVIC, và ngắt sẽ đc đăng ký với Processor
+Theo RM407->12.3.6: bit đc xóa khi đc set 1(This bit is cleared by programming it to ‘1’)
+=>Cần nghiên cứu kỹ datasheet vì ko phải thanh ghi nào cũng set=1(hoạt động) và clear=0(dừng)
 */

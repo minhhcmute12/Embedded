@@ -118,7 +118,7 @@ void GPIO_ButtonInit()
 	//Gpio_Led.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;	//Chọn pull-up(kéo lên)
 
 	//Cấu hình xung Clock cho Peripheral Port Button
-	//GPIO_PeriClockControl(GPIOA, ENABLE);		//Port D và Enalbe=1
+	GPIO_PeriClockControl(GPIOA, ENABLE);		//Port D và Enalbe=1
 	//Ko cần vì đã cấu hình xung clock ở hàm dưới cho SPI
 
 	//Gọi hàm khởi tạo hoạt động cấu hình muốn điều khiển(ở đây muốn điều khiển Input Button)
@@ -130,6 +130,8 @@ void GPIO_ButtonInit()
  */
 int main(void)
 {
+	GPIO_ButtonInit();
+
 	//I2C pin Alternate Function
 	I2C1_GPIOInits();
 

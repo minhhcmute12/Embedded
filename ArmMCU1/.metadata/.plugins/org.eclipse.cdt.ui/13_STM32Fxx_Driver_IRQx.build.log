@@ -1,4 +1,4 @@
-21:20:34 **** Build of configuration Debug for project 13_STM32Fxx_Driver_IRQx ****
+22:38:17 **** Build of configuration Debug for project 13_STM32Fxx_Driver_IRQx ****
 make -j8 all 
 arm-none-eabi-gcc "../drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/Users/Minh/Documents/ArmMCU1/13_STM32Fxx_Driver_IRQx/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"drivers/Src/stm32f407xx_gpio_driver.d" -MT"drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f407xx_gpio_driver.o"
 arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
@@ -17,5 +17,5 @@ Finished building: default.size.stdout
 Finished building: 13_STM32Fxx_Driver_IRQx.list
  
 
-21:20:35 Build Finished. 0 errors, 0 warnings. (took 1s.283ms)
+22:38:19 Build Finished. 0 errors, 0 warnings. (took 1s.219ms)
 

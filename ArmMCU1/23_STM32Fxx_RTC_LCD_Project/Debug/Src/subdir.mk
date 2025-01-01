@@ -5,19 +5,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/14_rtc_ds1307_testing.c \
+../Src/15_rtc_ds1307_lcd_testing.c \
 ../Src/syscalls.c \
-../Src/sysmem.c 
+../Src/sysmem.c \
+../Src/tutorial_rtc_project.c 
 
 OBJS += \
-./Src/14_rtc_ds1307_testing.o \
+./Src/15_rtc_ds1307_lcd_testing.o \
 ./Src/syscalls.o \
-./Src/sysmem.o 
+./Src/sysmem.o \
+./Src/tutorial_rtc_project.o 
 
 C_DEPS += \
-./Src/14_rtc_ds1307_testing.d \
+./Src/15_rtc_ds1307_lcd_testing.d \
 ./Src/syscalls.d \
-./Src/sysmem.d 
+./Src/sysmem.d \
+./Src/tutorial_rtc_project.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +30,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/14_rtc_ds1307_testing.cyclo ./Src/14_rtc_ds1307_testing.d ./Src/14_rtc_ds1307_testing.o ./Src/14_rtc_ds1307_testing.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/15_rtc_ds1307_lcd_testing.cyclo ./Src/15_rtc_ds1307_lcd_testing.d ./Src/15_rtc_ds1307_lcd_testing.o ./Src/15_rtc_ds1307_lcd_testing.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/tutorial_rtc_project.cyclo ./Src/tutorial_rtc_project.d ./Src/tutorial_rtc_project.o ./Src/tutorial_rtc_project.su
 
 .PHONY: clean-Src
 

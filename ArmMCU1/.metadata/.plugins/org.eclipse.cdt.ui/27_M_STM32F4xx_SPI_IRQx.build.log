@@ -1,0 +1,18 @@
+22:38:41 **** Build of configuration Debug for project 27_M_STM32F4xx_SPI_IRQx ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/007_spi_message_rcv_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/27_M_STM32F4xx_SPI_1/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/007_spi_message_rcv_it.d" -MT"Src/007_spi_message_rcv_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/007_spi_message_rcv_it.o"
+arm-none-eabi-gcc "../Driver_M/Src/stm32f407xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/27_M_STM32F4xx_SPI_1/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Driver_M/Src/stm32f407xx_spi_driver.d" -MT"Driver_M/Src/stm32f407xx_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Driver_M/Src/stm32f407xx_spi_driver.o"
+arm-none-eabi-gcc -o "27_M_STM32F4xx_SPI_IRQx.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\27_M_STM32F4xx_SPI_1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="27_M_STM32F4xx_SPI_IRQx.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 27_M_STM32F4xx_SPI_IRQx.elf
+ 
+arm-none-eabi-size   27_M_STM32F4xx_SPI_IRQx.elf 
+arm-none-eabi-objdump -h -S  27_M_STM32F4xx_SPI_IRQx.elf  > "27_M_STM32F4xx_SPI_IRQx.list"
+   text	   data	    bss	    dec	    hex	filename
+   8168	    100	   2436	  10704	   29d0	27_M_STM32F4xx_SPI_IRQx.elf
+Finished building: default.size.stdout
+ 
+Finished building: 27_M_STM32F4xx_SPI_IRQx.list
+ 
+
+22:38:42 Build Finished. 0 errors, 0 warnings. (took 1s.63ms)
+

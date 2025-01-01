@@ -1,4 +1,4 @@
-"./Src/006_spi_cmd_handling.o"
+"./Src/005_spi_txonly_arduino.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Src/tutorial_spi_driver.o"

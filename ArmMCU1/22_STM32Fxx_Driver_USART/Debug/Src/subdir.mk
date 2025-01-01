@@ -5,19 +5,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/13_usart_it_testing.c \
+../Src/12_usart_txtesting.c \
 ../Src/syscalls.c \
-../Src/sysmem.c 
+../Src/sysmem.c \
+../Src/usart_tutorial.c 
 
 OBJS += \
-./Src/13_usart_it_testing.o \
+./Src/12_usart_txtesting.o \
 ./Src/syscalls.o \
-./Src/sysmem.o 
+./Src/sysmem.o \
+./Src/usart_tutorial.o 
 
 C_DEPS += \
-./Src/13_usart_it_testing.d \
+./Src/12_usart_txtesting.d \
 ./Src/syscalls.d \
-./Src/sysmem.d 
+./Src/sysmem.d \
+./Src/usart_tutorial.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +30,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/13_usart_it_testing.cyclo ./Src/13_usart_it_testing.d ./Src/13_usart_it_testing.o ./Src/13_usart_it_testing.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/12_usart_txtesting.cyclo ./Src/12_usart_txtesting.d ./Src/12_usart_txtesting.o ./Src/12_usart_txtesting.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/usart_tutorial.cyclo ./Src/usart_tutorial.d ./Src/usart_tutorial.o ./Src/usart_tutorial.su
 
 .PHONY: clean-Src
 

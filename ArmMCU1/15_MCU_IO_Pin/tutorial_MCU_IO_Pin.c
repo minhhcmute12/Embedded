@@ -10,7 +10,8 @@ Trong chương này ta sẽ tiến hành tìm hiểu các thông số kỹ thu�
 *==STM32 Pin Specifications(V118)
 + Absolute maximum ratings(AMR): Tìm hiểu Vdd và Vss
  ^Tham khảo tài liệu: "Datasheet_stm32f407x.pdf" -> 5.2 AMR -> Table 11
- ^"Vdd" là nguồn điện chính của vi điều khiển. Được cung cấp bên ngoài thông qua các chân Vdd của vi điều khiển.
+ ^"Vdd" là nguồn điện chính cấp cho vi điều khiển hoạt động. Được cung cấp từ nguồn bên ngoài vào chân VDD của vi điều khiển.
+ Trên board STM32F407G-DISC1 có mạch ổn áp nên giúp cho việc nguồn USB-5V thành VDD cho vi điều khiển.
  ^Điện áp hoạt động chuẩn của Vdd là từ 1.8V <= Vdd <= 3.6V
  Nếu điện áp dưới 1.8V thì có thể vđk sẽ không thể hoạt động, hoặc lớn hơn 3.6V thì vđk có thể bị hư hỏng
  ^Điện áp tối đa có thể đặt vào bất kỳ chân Vdd nào của vđk là 4V. (Bạn cần phải check AMR table trong datasheet
@@ -21,8 +22,7 @@ Trong chương này ta sẽ tiến hành tìm hiểu các thông số kỹ thu�
 
 + General operating conditions(GOC) - Điều kiện hoạt động chung
  ^Tham khảo tài liệu: "Datasheet_stm32f407x.pdf" -> 5.3.1 GOC -> Table 14
- ^Các điều kiện vận hành chung thể hiện phạm vi giá trị được đảm bảo trong đó thiết bị hoạt động trong điều kiện
- thích hợp
+ ^Các điều kiện vận hành chung thể hiện phạm vi giá trị được đảm bảo trong đó thiết bị hoạt động trong điều kiện thích hợp
  ^Các thông số cần chú ý trong Table 14: VDD, VDDA(Analog Voltage)
 
 + Vin: là điện áp đầu vào(input voltage) có thể áp dụng cho bất kỳ STM32pin
@@ -50,8 +50,8 @@ Trong chương này ta sẽ tiến hành tìm hiểu các thông số kỹ thu�
  ^GPIO chỉ có khả năng chịu được 5 volt ở chế độ đầu vào (Tính năng dung sai 5 volt không được áp
  dụng khi gpio ở chế độ đầu ra hoặc chế độ analog)
  ^Điều kiện hoạt động chung: -0.3V <= Vin(FT) <= Vdd + 0.5V(5.5V)
- ^Đối với chân FT, bất kể điện áp nguồn, Đảm bảo rằng Vin không thể vượt quá 5.5V
- ^Đối với FT GPIO, điện áp Vin tối đa giới hạn ở Vdd +4V
+ ^Đối với chân FT, bất kể điện áp nguồn, đảm bảo rằng Vin không thể vượt quá 5.5V
+ ^Đối với FT_GPIO, điện áp Vin tối đa giới hạn ở Vdd +4V
  ^Khi Vdd = 0V (Thiết bị stm32 không được cấp nguồn), điện áp đầu vào trên FT GPIO không thể vượt quá 4V
 
 *==Pin current characteristics(Đặc điểm dòng điện) (V119)
@@ -142,7 +142,7 @@ Kiến thức trong video sẽ đc áp dụng cho hầu hết các dòng vi đi�
   Arduino mới hiểu là có mức HIGH
   ~Tương tự ta có (STM32)V_OL <= V_IL(Arduino) để bo Arduino mới hiệu là có mức LOW
   ~Giải thích tương tự nếu STM32 làm Input Block
-  ~Nếu điện áp <V_IH(min) và >V_IL(max) thì sẽ ko nhận dạng đc mức Logic
+  ~Nếu điện áp nhỏ hơn V_IH(min) và lớn hơn V_IL(max) thì sẽ ko nhận dạng đc mức Logic
   ~Cần kiểm tra datasheet của board mạch sử dụng để biết V_IL/V_IH và V_OH/V_OL trước khi thiết kế sơ đồ mạch và lập trình
 
   ~V_IH là mức điện áp cao tối thiểu đưa vào để nó hiểu mức logic High
@@ -154,15 +154,15 @@ Kiến thức trong video sẽ đc áp dụng cho hầu hết các dòng vi đi�
 + CMOS technology: V_IH(min) =~ 2/3 Vdd và V_IL(max) =~ 1/3 Vdd
   TTL technology: V_IH(min) =~ 2V và V_IL(max) =~ 0.8V
 
-+ Vd: Ta có STM32(Tranmitter) giao tiếp với Arduino(Receptor)
++ Vd1: Ta có STM32(Tranmitter) giao tiếp với Arduino(Receptor)
   Vdd for STM32: 3.3V và Vdd for Arduino: 5V
   ^Mô hình: 												  Vdd(5V)_______________
 																	|				|
 																	|				|
-			Vdd(3.3V)________________								|				|
-					 | Logic level 1|								| 				|
-					 ---------------- V_OH(2.9V)  -----------------	| Logic level 1 |
-					 | Intermediate	| ---------Noise Margin-------- -----------------V_IH(3V)
+			Vdd(3.3V)________________								|Logic level 1	|
+					 | Logic level 1| ---------Noise Margin-------- -----------------V_IH(3V)
+					 ---------------- V_OH(2.9V)  -----------------	|  				|
+					 | Intermediate	| 								|				|
 					 |	region		|								| Intermediate	|
 					 |				|								|  region		|
 					 |				| ----------Noise Margin------- -----------------V_IL(1.5V)

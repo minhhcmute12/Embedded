@@ -79,7 +79,7 @@ mà trình biên dịch có thể hiểu đc.
 + Cách tính địa chỉ SRAM2: ta có SRAM(SRAM1+SRAM2) và dung lượng của SRAM1 là 112KB, suy ta vị trí từ
 0x20000000U + 111kb là vị trí cuối của SRAM1(Lưu ý: 1kB = 1000B)
 ->Vị trí của SRAM2 là 112*1024 = 114,688(Dec) = 1C000(Hex) -> Địa chỉ: 0x20000000U + 1C000 = 0x2001C000
- ^Mẹo; sử dụng phần mềm máy tính để có thể đổi đc các dạng số Nhị-Bát-Thập-ThậpLục
+ ^Mẹo: sử dụng phần mềm máy tính để có thể đổi đc các dạng số Nhị-Bát-Thập-ThậpLục
  ^Xem chi tiết bảng Table 3. Memory mapping
 
 *==Defining base addresses of different bus domains - Xác định địa chỉ cơ sở của các Bus khác nhau(V79)

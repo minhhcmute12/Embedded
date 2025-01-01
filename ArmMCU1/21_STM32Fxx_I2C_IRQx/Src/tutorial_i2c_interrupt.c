@@ -38,7 +38,7 @@ SMBus Alert												SMBALERT
  ^Input Interrupt_Event là 2 line tượng trưng như là bit cột Event flag(Error)=1 và Enable control bit(ITRRREN)=1
   Output Interrupt_Error line sẽ đc thiết kế kết nối với ngõ IRQn_3x+1 của NVIC Reigster của Processor(ARM Cortex M4)
 
-+ I2C Interrupt the Processor: Tham khảo Datasheet_stm32f407x: Vector Table (I2Cx_EV và I2Cx_ER)
++ I2C Interrupt the Processor: Tham khảo Datasheet_stm32f407x: Vector Table 62 (I2Cx_EV và I2Cx_ER)
  ^Interrupt_Event(I2C1) line sẽ đc thiết kế kết nối với ngõ IRQn_31 của NVIC Reigster của Processor(ARM Cortex M4)
   Interrupt_Error(I2C1) line sẽ đc thiết kế kết nối với ngõ IRQn_32 của NVIC Reigster của Processor(ARM Cortex M4)
  ^Interrupt_Event(I2C2) line sẽ đc thiết kế kết nối với ngõ IRQn_33 của NVIC Reigster của Processor(ARM Cortex M4)
@@ -82,11 +82,11 @@ SMBus Alert												SMBALERT
  cho phép stretching.
 
 + Tìm hiểu về "BTF flag in TX" và việc preventing(ngăn chặn) Under-run
- ^Trong quá trình tuyền Txing của một byte data, nếu bit TXE=1 thì điều này có nghĩa là Data Register đang empty
- ^Và nếu firmware chưa ghi bất kỳ byte nào vào Data Register trước khi Shift Register trở nên empty (trước
+ ^Trong quá trình tuyền Tx của một byte data, nếu bit TXE=1 thì điều này có nghĩa là Data Register đang empty
+ ^Và nếu firmware chưa ghi bất kỳ byte nào vào Data Register trước khi Shift Register(SR) trở nên empty (trước
  đó bằng cách truyền), thì cờ BTF sẽ được đặt và đồng hồ sẽ được kéo dài để ngăn chặn việc chạy under-run
 
- ^Chu trình: Ta có SR <=>DR<--firmware/software. Đầu tiên ta có 1 byte A đc software->DR, sau đó byteA đc sao chép
+ ^Chu trình: Ta có SR <=> DR<--firmware/software. Đầu tiên ta có 1 byte A đc software->DR, sau đó byteA đc sao chép
  từ DR->SR, từ SR sẽ truyền data ra bên ngoài. Lúc này DR là empty(TXE=1), tuy nhiên trong khi TXE=1 thì firmware
  lại đưa vào DR một byteB, sau đó sao chép byteB vào SR. byteB này ko phải là byte dữ liệu đúng, dẫn đến việc
  truyền dữ liệu bị sai(gọi là under-run).(firmware:byte do phần cứng tạo/software: byte do user muốn truyền)
@@ -95,13 +95,13 @@ SMBus Alert												SMBALERT
  khi TXE=1 và BTF=1 thì cả DR và SR đang empty và cùng với đó là clock sẽ stretching
 
 + Tìm hiểu về "BTF flag in RX" và việc preventing(ngăn chặn) Overrun
- ^Nếu RXNE = 1, điều đó có nghĩa là dữ liệu mới đang chờ trong DR và nếu firmwaren chưa đọc byte dữ liệu trước khi SR
+ ^Nếu RXNE = 1, điều đó có nghĩa là dữ liệu mới đang chờ trong DR và nếu firmware chưa đọc byte dữ liệu trước khi SR
  được lấp đầy một dữ liệu byte mới khác thì cờ BTF cũng sẽ được đặt và đồng hồ sẽ được kéo dài để ngăn chặn việc Overrun
  Nghĩa là chỉ đọc các data đc gửi từ Slave->SR->DR, ngăn chặn việc đọc các data do firmware tạo ra gửi vào DR
  Việc các data do slave gửi đến và do firmware tạo ra lẫn vào nhau và cùng đc đọc thì dẫn đến Overrun Error
 
 + I2C Handle Strcuture modification - Sửa đổi lại cấu hình Strcuture của I2C Handle(V215)
-+ I2C ađing interrupt related and interrupt APIs(V216)
++ I2C adding interrupt related and interrupt APIs(V216)
 
 *===I2C Interrupt based APIs(S62)
 *==Assignmen(Bài tập)t: I2C Interrupt APIs Implemetation(V217)
@@ -146,7 +146,7 @@ sẽ giải phóng Bus empty nên cần tối hiệu chỉnh lại code
  có yêu cấu Write từ Master)
 
 *==I2C transfer sequence diagram for Slave transmitter(V231)
-+ Sơ đồ khối việc gửi dữ liệu từ Slave(STM32) đến Master(Read):
++ Sơ đồ khối việc gửi dữ liệu từ Slave(STM32) đến Master(Arduino):
 			 S|Address|A|_________| Data1 | A | Data2 | A |___....| DataN | NA|_____|P
 			   		    |EV1|EV3_1| EV3   |   | EV3   |   |EV3|               |EV3_2|
 

@@ -70,11 +70,77 @@
 + Xác định vị trí position trong thanh ghi NVIC để có thể đc sử dụng làm IRQx_EXTIx
  ^Datasheet: Table 61. Vector table for STM32F405xx/07xx and STM32F415xx/17xx(12.1.3)
  ^Triển khai phần 18_IRQ(Interrupt request) Number of SRTM32F407x MCU
+ 
++ Thêm(Gemini):Tìm hiểu về thao tác gán và thao tác OR(còn gọi là bit-by-bit): Để hiểu rõ sự khác biệt giữa hai đoạn code trên, 
+chúng ta cần nắm rõ hai thao tác cơ bản trong lập trình nhúng:
+ ^Gán (=): Thao tác này sẽ ghi đè giá trị ở vế phải vào địa chỉ bộ nhớ được chỉ định ở vế trái. Toàn bộ nội dung của ô nhớ 
+ sẽ được thay thế bằng giá trị mới.
+ 
+ ^OR_bit-by-bit (|=): Thao tác này thực hiện phép OR logic trên từng bit của hai toán hạng. Kết quả của phép OR sẽ được gán 
+ trở lại cho biến ở vế trái. Nghĩa là, nếu một bit nào đó của hai toán hạng có giá trị là 1, thì bit tương ứng trong kết 
+ quả cũng sẽ có giá trị là 1.
+ 
+ ^Ví dụ 1: Phân tích từng đoạn code
+  ~Đoạn code 1: SYSCFG->EXTICR[3] = 0x2 << (1* 4);
+  ->Ý nghĩa: Đoạn code này gán giá trị 0x2 << (1* 4) (tức là 0010) trực tiếp vào thanh ghi SYSCFG->EXTICR[3] 
+  bắt đầu từ vị trí bit4 và kéo dài 4 bit. Điều này có nghĩa là tất cả các bit trong thanh ghi này sẽ được thay thế và 
+  chỉ có 4 bit từ bit4->7 sẽ bằng giá trị 0x2(0010).
+  ->Tác dụng: Đoạn code này sẽ ghi đè cấu hình hiện tại của ngắt bên ngoài liên quan đến thanh ghi EXTICR[3] bằng cấu 
+  hình mới. Các bit khác trong thanh ghi này sẽ bị mất đi.
+
+  ~Đoạn code 2: SYSCFG->EXTICR[3] |= 0x2 << (1* 4);
+  ->Ý nghĩa: Đoạn code này thực hiện phép OR bit-by-bit giữa giá trị hiện tại của thanh ghi SYSCFG->EXTICR[3] và giá 
+  trị 0x2 << (1* 4). Kết quả của phép OR sẽ được gán lại cho chính thanh ghi này.
+  ->Tác dụng: Đoạn code này sẽ thiết lập các bit tương ứng của thanh ghi EXTICR[3] thành 1, trong khi giữ nguyên các 
+  bit còn lại. Điều này có nghĩa là chúng ta có thể thêm một cấu hình ngắt mới vào cấu hình hiện tại mà không làm mất đi   
+  các cấu hình khác.
+  
+ ^Khi nào nên sử dụng mỗi loại?
+  ~Sử dụng =(gán) khi:
+  Bạn muốn thay thế hoàn toàn cấu hình hiện tại bằng một cấu hình mới.
+  Bạn chắc chắn rằng các cấu hình cũ không còn cần thiết nữa.
+
+  ~Sử dụng |=(OR_Bit by Bit) khi:
+  Bạn muốn thêm một cấu hình ngắt mới vào cấu hình hiện tại.
+  Bạn muốn tránh làm mất đi các cấu hình ngắt khác đã được thiết lập trước đó.
+
+ ^Ví dụ 2: Giả sử ban đầu thanh ghi SYSCFG->EXTICR[3] có giá trị là 0x10 (tức là bit 4 đã được thiết lập).
+ Sau khi thực hiện SYSCFG->EXTICR[3] = 0x20;: Giá trị của thanh ghi sẽ là 0x20, chỉ có bit 5 được thiết lập.
+ Sau khi thực hiện SYSCFG->EXTICR[3] |= 0x20;: Giá trị của thanh ghi sẽ là 0x30, cả bit 4 và bit 5 đều được thiết lập.
+ Kết luận:
+ Thao tác gán (=): Thay thế hoàn toàn giá trị.
+ Thao tác OR (|=): Thêm giá trị mới vào giá trị hiện tại.
+ ->Việc lựa chọn sử dụng toán tử nào phụ thuộc vào mục đích cụ thể của bạn. Nếu bạn muốn thay đổi hoàn toàn cấu hình, 
+ hãy sử dụng toán tử gán. Nếu bạn muốn thêm một cấu hình mới mà không ảnh hưởng đến các cấu hình khác, hãy sử dụng 
+ toán tử OR.
+
+ ^Lưu ý:
+  ~Cấu hình ngắt: Việc cấu hình ngắt không chỉ dừng lại ở việc thiết lập thanh ghi EXTICR. Bạn cần phải thực hiện các 
+  bước cấu hình khác như kích hoạt đồng hồ cho cổng GPIO, cấu hình chế độ làm việc của chân GPIO, kích hoạt ngắt 
+  trong NVIC, ...
+  ~Kiểm tra datasheet: Để có thông tin chính xác và chi tiết về cấu trúc của các thanh ghi và cách thức hoạt động 
+  của chúng, bạn nên tham khảo datasheet của vi điều khiển.
 
 *==GPIO Pin Interrupt configuration coding: Part5(V112)
 + Tìm hiểu về cấu hình thanh ghi NVIC
- ^Datasheet: CortexM4 Device-> CortexM4 peripheral -> 4.2 Nested Vector Interrupt Control
- ^Như đã biết mỗi EXTIx sẽ đc một position của NVIC Register quản lý(vd EXTI0 đc nối với Position 6 của NVIC)
+ ^Datasheet: CortexM4 Generic user Device-> CortexM4 peripheral -> 4.2 Nested Vector Interrupt Control 
+ ^NVIC là một đơn vị quản lý ngắt trong vi điều khiển STM32F4x. Nó chịu trách nhiệm nhận, ưu tiên và xử lý các yêu cầu 
+ ngắt từ các nguồn khác nhau, bao gồm các thiết bị ngoại vi, ngoại vi bên trong và các sự kiện hệ thống. Chức năng:
+  +Nhận yêu cầu ngắt: Khi một sự kiện ngắt xảy ra, thiết bị ngoại vi hoặc nguồn ngắt bên trong sẽ gửi một yêu cầu 
+  ngắt đến NVIC.
+  +Ưu tiên ngắt: NVIC có thể ưu tiên các yêu cầu ngắt khác nhau. Ngắt có mức ưu tiên cao hơn sẽ được xử lý trước.
+  +Xử lý ngắt: Khi một yêu cầu ngắt được chấp nhận, NVIC sẽ tạm dừng chương trình chính và chuyển điều khiển đến hàm 
+  xử lý ngắt tương ứng.
+  +Quản lý trạng thái ngắt: NVIC có thể kích hoạt hoặc vô hiệu hóa các nguồn ngắt. Nó cũng có thể thiết lập các cờ ngắt
+  để chỉ ra rằng một ngắt đã xảy ra.
+  +Cấu trúc của NVIC: (* : là thanh ghi cần quan tâm)
+   NVIC_ISER (Interrupt Set-Enable Register): Được sử dụng để kích hoạt các nguồn ngắt. (*)
+   NVIC_ICER (Interrupt Clear-Enable Register): Được sử dụng để vô hiệu hóa các nguồn ngắt. (*)
+   NVIC_ISPR (Interrupt Set-Pending Register): Được sử dụng để đặt cờ ngắt cho một nguồn ngắt cụ thể.
+   NVIC_ICPR (Interrupt Clear-Pending Register): Được sử dụng để xóa cờ ngắt của một nguồn ngắt cụ thể.
+   NVIC_IPR (Interrupt Priority Register): Được sử dụng để thiết lập mức ưu tiên cho các nguồn ngắt.
+ 
+ ^Như đã biết mỗi EXTIx sẽ đc một position của NVIC Register quản lý(vd EXTI0 đc nối với Position 6 của NVIC) 
  ^Quan sát bảng 4-2 NVIC register summary
   ~Interrupt Set-enable Register(ISER) : cho phép ngắt trên IRQx
   ~Interrupt Clear-enable Register(ICER) : vô hiệu hóa ngắt trên IRQx
@@ -96,10 +162,37 @@
 
  ^Tìm hiểu Interrupt Priority Register(NVIC_IPR0~59)
   ~Mỗi Thanh ghi 32 bit[31:0], mỗi 8 bit quản lý IRQ -> Có IRQ0_PRI ->...->IRQ239_PRI
+  
+ ^Ví dụ: Cấu hình ngắt nút nhấn trên STM32F4 
+ Để cấu hình ngắt nút nhấn trên STM32F4, chúng ta cần thực hiện các bước sau:
+ 1.Cấu hình chân GPIO:
+  +Thiết lập chân GPIO làm chân nhập.
+  +Cấu hình ngắt bên ngoài (EXTI) cho chân GPIO.
+ 2.Cấu hình NVIC:
+  +Kích hoạt ngắt EXTI cho chân GPIO tương ứng.
+  +Thiết lập mức ưu tiên cho ngắt.  
+ 3.Code
+	// Cấu hình ngắt nút nhấn trên chân PA0
+	void EXTI0_IRQHandler(void) {
+	  // Xử lý sự kiện nút nhấn
+	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5); // Đảo trạng thái của chân PB5
+	}
+
+	void SystemClock_Config(void) {
+	  // ... (Cấu hình xung nhịp hệ thống)
+	}
+
+	void GPIO_Init(void) {
+	  // ... (Cấu hình chân PA0 làm input với pull-up)
+	  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0); // Thiết lập mức ưu tiên cho ngắt EXTI0
+	  HAL_NVIC_EnableIRQ(EXTI0_IRQn); // Kích hoạt ngắt EXTI0
+	} 
+  Trong ví dụ trên, khi nút nhấn được nhấn, một ngắt EXTI0 sẽ được tạo ra. Hàm EXTI0_IRQHandler sẽ được gọi để xử lý 
+  sự kiện này.
 
 + Code hàm: void GPIO_IRQConfig
 + Code : "stm32f407xx.h" -> Phần "Start processor specific details"
- ^Datasheet: Quan CortexM4 Device-> CortexM4 peripheral -> 4.2 Nested Vector Interrupt Control-> bảng 4-2 NVIC register summary
+ ^Datasheet: CortexM4 Device-> CortexM4 peripheral -> 4.2 Nested Vector Interrupt Control-> bảng 4-2 NVIC register summary
  ^Xác định địa chỉ address của từng NVIC_ISER0~7
  ^Xác định địa chỉ address của từng NVIC_ICER0~7
 

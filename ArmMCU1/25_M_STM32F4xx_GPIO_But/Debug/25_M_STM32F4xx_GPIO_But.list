@@ -1137,11 +1137,11 @@ void GPIO_IRQHangling(uint8_t PinNumber)
  800088a:	4a04      	ldr	r2, [pc, #16]	; (800089c <GPIO_IRQHangling+0x3c>)
  800088c:	430b      	orrs	r3, r1
  800088e:	6153      	str	r3, [r2, #20]
-	}
 
 	//Giải thích: Khi ngắt đc phát hiện thì bit tương ứng trong thanh ghi PR(Peding Register)thuộc EXTIx sẽ đc tự động set 1
 	//Xóa bit đang chờ ở thanh ghi PR(Pending Register) của NVIC, và ngắt sẽ đc đăng ký với Processor
-	//Theo Rm407->12.3.6: bit đc xóa khi đc set 1
+	//Theo RM407->12.3.6: bit đc xóa khi đc set 1(This bit is cleared by programming it to ‘1’)
+	//=>Cần nghiên cứu kỹ datasheet vì ko phải thanh ghi nào cũng set=1(hoạt động) và clear=0(dừng)
 }
  8000890:	bf00      	nop
  8000892:	370c      	adds	r7, #12

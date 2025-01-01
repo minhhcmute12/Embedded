@@ -32,7 +32,7 @@ I2C_Handle_t I2C1_Handle;			//biến toàn cục I2C peripheral
 #define SLAVE_ADDR 0x68			//Địa chỉ Arduino Slave, do phía Arduino lập trình cài đặt
 
 //Vd mẫu data muốn gửi
-uint8_t some_Data[] = "We are testing I2C master Tx \n";
+uint8_t some_Data[] = "We are testing I2C master Tx with interrupt \n";
 
 //Receive Buffer, biến chứa data nhận đc từ Slave, ở đây chỉ nhận tối đa là 32byte ký tự
 uint8_t rcv_Buf[32];
@@ -118,7 +118,7 @@ void GPIO_ButtonInit()
 	//Gpio_Led.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;	//Chọn pull-up(kéo lên)
 
 	//Cấu hình xung Clock cho Peripheral Port Button
-	//GPIO_PeriClockControl(GPIOA, ENABLE);		//Port D và Enalbe=1
+	GPIO_PeriClockControl(GPIOA, ENABLE);		//Port A và Enalbe=1
 	//Ko cần vì đã cấu hình xung clock ở hàm dưới cho SPI
 
 	//Gọi hàm khởi tạo hoạt động cấu hình muốn điều khiển(ở đây muốn điều khiển Input Button)
@@ -132,6 +132,9 @@ int main(void)
 {
 	uint8_t command_code;							//biến chứa các lệnh command từ Master->Slave
 	uint8_t len;									//biến chứa giá trị len từ Slave->Master
+
+	//GPIO But Int
+	GPIO_ButtonInit();
 
 	//I2C pin Alternate Function
 	I2C1_GPIOInits();
@@ -173,9 +176,9 @@ int main(void)
 		while(I2C_MasterSendDataIT(&I2C1_Handle, &command_code,1, SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
 
 		//nhận len từ Slave->Master
-		while(I2C_MasterReceiveDataIT(&I2C1_Handle,&len,1,SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
+		//while(I2C_MasterReceiveDataIT(&I2C1_Handle,&len,1,SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
 		//&len: con trỏ, cho phép thay đổi value len trong quá trình thực thi hàm
-		rxComplt = RESET;	//reset trạng thái đã hoàn thành rx hay chưa
+		//rxComplt = RESET;	//reset trạng thái đã hoàn thành rx hay chưa
 
 		/*********Receive**********/
 		/* 2. Master gửi mã lệnh 0x52 để đọc dữ liệu hoàn chỉnh từ Slave */
@@ -184,16 +187,16 @@ int main(void)
 		//gửi 0x52 từ Master->Slave
 		while(I2C_MasterSendDataIT(&I2C1_Handle, &command_code,1, SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
 		//nhận data từ Slave->Master
-		while(I2C_MasterReceiveDataIT(&I2C1_Handle,rcv_Buf,len,SLAVE_ADDR,I2C_DISABLE_SR) != I2C_READY);
+		//while(I2C_MasterReceiveDataIT(&I2C1_Handle,rcv_Buf,len,SLAVE_ADDR,I2C_DISABLE_SR) != I2C_READY);
 
 		//Nếu rx chưa hoàn thành sẽ lặp và dừng chương trình tại đây
-		while(rxComplt != SET)
+		/*while(rxComplt != SET)
 		{
 
-		}
+		}*/
 
 		//Vì sử dụng %s để hiển thị nội dung data nên vị trí cuối cùng của mảng phải là giá trị null'\0'
-		rcv_Buf[len+1] = '\0';
+		//rcv_Buf[len+1] = '\0';
 
 		//printf("Data: %s\n",rcv_Buf);		//hiển thị nội dung data Slave->Master
 
@@ -206,6 +209,9 @@ int main(void)
 //word	I2C1_EV_IRQHandler           			/* I2C1 event interrupt                                               */
 //word	I2C1_ER_IRQHandler 						/* I2C1 error interrupt
 
+/*
+ * Lưu ý: cứ mỗi byte data(2 ký tự) truyền hoặc nhận thì ngắt sẽ đc kích hoạt cho đến khi hoàn thành
+ */
 /**
  * Triển khai I2C Event Interrupt
  */

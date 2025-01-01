@@ -496,6 +496,6 @@ void GPIO_IRQHangling(uint8_t PinNumber)
 	//Clear the exti pr register corresponding(tương ứng) to the pin number
 	if(EXTI->PR & (1 << PinNumber))
 	{
-		EXTI->PR &= ~(1 << PinNumber); 		//Clear bit trong PR(Pending Register EXTI)
+		EXTI->PR |= (1 << PinNumber); 		//Clear bit trong PR(Pending Register EXTI)
 	}
 }

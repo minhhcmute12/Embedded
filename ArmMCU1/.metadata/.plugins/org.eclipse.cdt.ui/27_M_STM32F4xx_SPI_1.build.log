@@ -1,0 +1,17 @@
+19:18:15 **** Incremental Build of configuration Debug for project 27_M_STM32F4xx_SPI_1 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/007_spi_message_rcv_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/Users/Minh/Documents/ArmMCU1/27_M_STM32F4xx_SPI_1/Driver_M/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/007_spi_message_rcv_it.d" -MT"Src/007_spi_message_rcv_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/007_spi_message_rcv_it.o"
+arm-none-eabi-gcc -o "27_M_STM32F4xx_SPI_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\27_M_STM32F4xx_SPI_1\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="27_M_STM32F4xx_SPI_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 27_M_STM32F4xx_SPI_1.elf
+ 
+arm-none-eabi-size   27_M_STM32F4xx_SPI_1.elf 
+arm-none-eabi-objdump -h -S  27_M_STM32F4xx_SPI_1.elf  > "27_M_STM32F4xx_SPI_1.list"
+   text	   data	    bss	    dec	    hex	filename
+   8168	    100	   2436	  10704	   29d0	27_M_STM32F4xx_SPI_1.elf
+Finished building: default.size.stdout
+ 
+Finished building: 27_M_STM32F4xx_SPI_1.list
+ 
+
+19:18:16 Build Finished. 0 errors, 0 warnings. (took 1s.198ms)
+

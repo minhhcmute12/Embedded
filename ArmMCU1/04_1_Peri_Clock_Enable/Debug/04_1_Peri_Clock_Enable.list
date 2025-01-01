@@ -106,7 +106,7 @@ int main(void)
  80001fe:	683b      	ldr	r3, [r7, #0]
  8000200:	601a      	str	r2, [r3, #0]
 
-    //2. modify the ADC cr1 register //Sửa đổi đồng thời enable cho thanh ghi ADC CR1
+    //2. Modify the ADC cr1 register //Sửa đổi đồng thời enable cho thanh ghi ADC CR1
 	*pAdcCr1Reg |= ( 1 << 8);		//Set bit thứ 8 của ADC peripheral Register lên 1 -> SCAN
  8000202:	687b      	ldr	r3, [r7, #4]
  8000204:	681b      	ldr	r3, [r3, #0]

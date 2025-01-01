@@ -1,17 +1,10 @@
-21:20:18 **** Build of configuration Debug for project 03_Sample_App ****
+22:38:06 **** Build of configuration Debug for project 03_Sample_App ****
 make -j8 all 
-arm-none-eabi-gcc "../Src/tutorial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/tutorial.d" -MT"Src/tutorial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/tutorial.o"
-arm-none-eabi-gcc -o "03_Sample_App.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Minh\Documents\ArmMCU1\03_Sample_App\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="03_Sample_App.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 03_Sample_App.elf
- 
 arm-none-eabi-size   03_Sample_App.elf 
-arm-none-eabi-objdump -h -S  03_Sample_App.elf  > "03_Sample_App.list"
    text	   data	    bss	    dec	    hex	filename
    6308	    172	   1900	   8380	   20bc	03_Sample_App.elf
 Finished building: default.size.stdout
  
-Finished building: 03_Sample_App.list
- 
 
-21:20:19 Build Finished. 0 errors, 0 warnings. (took 927ms)
+22:38:07 Build Finished. 0 errors, 0 warnings. (took 321ms)
 
