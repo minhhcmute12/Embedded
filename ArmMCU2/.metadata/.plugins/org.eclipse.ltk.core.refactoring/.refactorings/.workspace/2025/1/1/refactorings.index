@@ -1,0 +1,7 @@
+1735957911201	Delete resource '02_CubeMx'
+1735959630309	Delete 3 resources
+1735960074293	Delete resource '02_HAL_UART/Inc/main.h'
+1735960079464	Delete resource '02_HAL_UART/Inc/stm32f4xx_it.h'
+1735960160244	Delete resource '02_HAL_UART/Drivers/main.h'
+1735962065294	Delete resource '02_HAL_UART/Src/sysmem.c'
+1735962077033	Delete resource '02_HAL_UART/Src/syscalls.c'

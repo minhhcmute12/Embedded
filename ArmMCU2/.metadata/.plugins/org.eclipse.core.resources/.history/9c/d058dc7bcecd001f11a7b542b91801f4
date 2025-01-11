@@ -1,0 +1,96 @@
+/*
+ * main.c
+ *
+ *  Created on: Jan 4, 2025
+ *  Author: Minh
+ *  Send and Receive data use UART Interrupt Peripheral
+ */
+
+#include "stm32f4xx_hal.h"				//Thư viện Select MCU
+#include "stm32f446xx.h"				//Thư viện define Peripheral
+#include "main.h"
+#include "string.h"
+
+#define TRUE  1
+#define FALSE 0
+
+void UART2_Init(void);
+void Error_Handler(void);
+
+//Biến dùng cho Interrupt
+UART_HandleTypeDef huart2; 				//Biến toàn cục UART Handle
+
+
+int main(void)
+{
+	//Khai báo các biến cấu trúc liên quan đến cấu hình xung clock
+	RCC_OscInitTypeDef osc_init;
+	RCC_ClkInitTypeDef clk_init;
+
+	HAL_Init();						//Call HAL_MspInit()
+	UART2_Init();					//Call HAL_UART_MspInit()
+
+	//Cấu hình thông số cho các thành phần biến struct "osc_init"
+	memset(&osc_init,0,sizeof(osc_init));			//Khởi tạo value thành phần cấu trúc bằng 0
+	osc_init.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+	osc_init.HSEState = RCC_HSE_BYPASS;
+	//Call
+	if(HAL_RCC_OscConfig(&osc_init)) != HAL_OK)
+	{
+		Error_Handler();
+	}
+
+	while(1);
+	return 0;
+}
+
+/*********************************************************************
+ * @fn      	- UART2_Init
+ *
+ * @brief       - Cấu hình thông số USARTx Peripheral
+ *
+ * @param[in]   - none
+ *
+ * @return      - none
+ *
+ * @Note        - none
+ */
+void UART2_Init(void)
+{
+	//Cài đặt từng thông số USARTx
+	huart2.Instance = USART2;
+	huart2.Init.BaudRate = 115200;
+	huart2.Init.WordLength = UART_WORDLENGTH_8B;
+	huart2.Init.StopBits = UART_STOPBITS_1;
+	huart2.Init.Parity = UART_PARITY_NONE;
+	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart2.Init.Mode = UART_MODE_TX_RX;
+
+	//Cấu hình USARTx
+	if(HAL_UART_Init(&huart2) != HAL_OK)
+	{
+		//This is a Problem
+		Error_Handler();
+
+		/* Giải thích:
+		 * Kiểu biến của hàm HAL_UART_Init là một kiểu "Enum" "HAL_StatusTypeDef"
+		 * mà "Enum" "HAL_StatusTypeDef" là gồm các lựa chọn trạng thái kết quả hàm
+		 */
+	}
+}
+
+/*********************************************************************
+ * @fn      	- Error_Handler
+ *
+ * @brief       - Xử lý khi cấu hình USARTx xuất hiện lỗi
+ *
+ * @param[in]   - none
+ *
+ * @return      - none
+ *
+ * @Note        - none
+ */
+void Error_Handler(void)
+{
+	while(1); //chương trình lặp lại vô hạn
+}
